@@ -1,11 +1,15 @@
 package com.twitter.socialGraph.infra.model;
 
+import com.twitter.directMessage.domain.model.MessageDomain;
+import com.twitter.directMessage.infra.model.Message;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -22,8 +26,14 @@ public class User {
     private String phone;
     @OneToOne
     private SocialGraph socialGraph;
+    @OneToMany
+    private List<Message> messages;
 
     public UserDomain toDomain() {
+        List<MessageDomain> messages = new ArrayList<MessageDomain>();
+        this.messages.forEach(message->{
+            messages.add(message.toDomain());
+        });
         return new UserDomain(
                 this.id,
                 this.username,
@@ -31,7 +41,8 @@ public class User {
                 this.lastname,
                 this.email,
                 this.phone,
-                this.socialGraph.toDomain()
+                this.socialGraph.toDomain(),
+                messages
         );
     }
 }

@@ -1,5 +1,7 @@
 package com.twitter.socialGraph.domain.model;
 
+import com.twitter.socialGraph.api.model.SocialGraphAPI;
+import com.twitter.socialGraph.api.model.UserAPI;
 import com.twitter.socialGraph.infra.model.SocialGraph;
 import com.twitter.socialGraph.infra.model.User;
 import lombok.AllArgsConstructor;
@@ -24,9 +26,9 @@ public class SocialGraphDomain {
     }
 
     public SocialGraph toInfra() {
-        List<User> blockedInfra= new ArrayList<User>();
-        List<User> followedInfra= new ArrayList<User>();
-        List<User> reportedInfra= new ArrayList<User>();
+        List<User> blockedInfra = new ArrayList<User>();
+        List<User> followedInfra = new ArrayList<User>();
+        List<User> reportedInfra = new ArrayList<User>();
         this.blocked.forEach(user -> {
             blockedInfra.add(user.toInfra());
         });
@@ -42,6 +44,28 @@ public class SocialGraphDomain {
                 blockedInfra,
                 followedInfra,
                 reportedInfra
+        );
+    }
+
+    public SocialGraphAPI toAPI() {
+        List<UserAPI> blocked = new ArrayList<UserAPI>();
+        List<UserAPI> followed = new ArrayList<UserAPI>();
+        List<UserAPI> reported = new ArrayList<UserAPI>();
+        this.blocked.forEach(user -> {
+            blocked.add(user.toAPI());
+        });
+        this.followed.forEach(user -> {
+            followed.add(user.toAPI());
+        });
+        this.reported.forEach(user -> {
+            reported.add(user.toAPI());
+        });
+        return new SocialGraphAPI(
+                this.id,
+                this.owner.toAPI(),
+                blocked,
+                followed,
+                reported
         );
     }
 }
