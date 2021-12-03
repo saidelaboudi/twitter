@@ -3,7 +3,6 @@ package com.twitter.socialGraph.domain.model;
 import com.twitter.directMessage.api.model.MessageAPI;
 import com.twitter.directMessage.domain.model.MessageDomain;
 import com.twitter.directMessage.infra.model.Message;
-import com.twitter.directMessage.infra.model.MessageInfra;
 import com.twitter.socialGraph.api.model.UserAPI;
 import com.twitter.socialGraph.infra.model.User;
 import lombok.AllArgsConstructor;

@@ -6,7 +6,7 @@ import com.twitter.socialGraph.domain.port.api.ISocialGraphAPI;
 import com.twitter.socialGraph.domain.port.infra.ISocialGraphInfrastructure;
 import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
 
-public class UserCase implements ISocialGraphAPI {
+public class SocialGraph implements ISocialGraphAPI {
     private ISocialGraphInfrastructure iSocialGraphInfrastructure;
     private IUserInfraPort iUserInfraPort;
     public void reportUser(Long currentUserId, Long userId) {
