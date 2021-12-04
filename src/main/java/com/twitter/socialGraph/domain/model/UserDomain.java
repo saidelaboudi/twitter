@@ -25,34 +25,43 @@ public class UserDomain {
     private String email;
     private String phone;
     private SocialGraphDomain socialGraph;
-    private List<MessageDomain> messages;
+    private List<MessageDomain> messagesSent;
+    private List<MessageDomain> messagesReceived;
 
     public User toInfra() {
-        List<Message> messages = new ArrayList<Message>();
-        this.messages.forEach(message->{
-            messages.add(message.toInfra());
+        List<Message> messagesSent = new ArrayList<Message>();
+        List<Message> messagesReceived = new ArrayList<Message>();
+        this.messagesSent.forEach(message -> {
+            messagesSent.add(message.toInfra());
+        });
+        this.messagesReceived.forEach(message -> {
+            messagesReceived.add(message.toInfra());
         });
         return new User(
-            this.id,
-            this.username,
-            this.firstname,
-            this.lastname,
-            this.email,
-            this.phone,
-            this.socialGraph.toInfra(),
-                messages
+                this.id,
+                this.username,
+                this.firstname,
+                this.lastname,
+                this.email,
+                this.phone,
+                this.socialGraph.toInfra(),
+                messagesSent,
+                messagesReceived
         );
     }
 
     public void addMessage(MessageDomain message) {
-        this.messages.add(message);
+        this.messagesReceived.add(message);
     }
 
     public UserAPI toAPI() {
-
-        List<MessageAPI> messages = new ArrayList<MessageAPI>();
-        this.messages.forEach(message->{
-            messages.add(message.toApi());
+        List<MessageAPI> messagesSent = new ArrayList<MessageAPI>();
+        List<MessageAPI> messagesReceived = new ArrayList<MessageAPI>();
+        this.messagesSent.forEach(message -> {
+            messagesSent.add(message.toApi());
+        });
+        this.messagesReceived.forEach(message -> {
+            messagesReceived.add(message.toApi());
         });
         return new UserAPI(
                 this.id,
@@ -62,7 +71,8 @@ public class UserDomain {
                 this.email,
                 this.phone,
                 this.socialGraph.toAPI(),
-                messages
+                messagesSent,
+                messagesReceived
         );
     }
 
