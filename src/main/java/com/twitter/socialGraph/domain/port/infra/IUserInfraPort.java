@@ -4,5 +4,5 @@ import com.twitter.socialGraph.domain.model.UserDomain;
 
 public interface IUserInfraPort {
     public UserDomain findUserById(Long userId);
-    public void updateUser(UserDomain user);
+    public UserDomain updateUser(UserDomain user);
 }

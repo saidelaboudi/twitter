@@ -1,8 +1,12 @@
 package com.twitter.tweet.domain.model;
 
+import com.twitter.directMessage.api.model.ReactionAPI;
 import com.twitter.directMessage.domain.model.ReactionDomain;
 import com.twitter.directMessage.infra.model.Reaction;
 import com.twitter.socialGraph.domain.model.UserDomain;
+import com.twitter.tweet.api.model.ReplyAPI;
+import com.twitter.tweet.api.model.ReportAPI;
+import com.twitter.tweet.api.model.TweetAPI;
 import com.twitter.tweet.infra.model.Reply;
 import com.twitter.tweet.infra.model.Report;
 import com.twitter.tweet.infra.model.Tweet;
@@ -57,7 +61,25 @@ public class TweetDomain {
         );
     }
 
-    public TweetDomain toDomain() {
-        return null;
+    public TweetAPI toAPI() {
+        List<ReactionAPI> reactions =new ArrayList<>();
+        List<ReplyAPI> replies =new ArrayList<>();
+        List<ReportAPI> reports =new ArrayList<>();
+        this.reactions.forEach(reaction->{
+            reactions.add(reaction.toAPI());
+        });
+        this.replies.forEach(reply->{
+            replies.add(reply.toAPI());
+        });
+        this.reports.forEach(report->{
+            reports.add(report.toAPI());
+        });
+        return new TweetAPI(
+                this.id,
+                this.owner.toAPI(),
+                reactions,
+                replies,
+                reports
+        );
     }
 }

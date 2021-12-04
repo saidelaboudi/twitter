@@ -10,4 +10,9 @@ public class DirectMessageInfraPortAdapter implements IDirectMessageInfraPort {
     public MessageDomain findMessageById(Long messageId) {
         return directMessageServices.findMessageById(messageId).toDomain();
     }
+
+    @Override
+    public MessageDomain updateMessage(MessageDomain message) {
+        return directMessageServices.updateMessage(message.toInfra()).toDomain();
+    }
 }

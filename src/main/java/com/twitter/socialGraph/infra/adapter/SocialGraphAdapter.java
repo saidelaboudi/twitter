@@ -8,26 +8,11 @@ import com.twitter.socialGraph.infra.service.ISocialGraphService;
 import com.twitter.socialGraph.infra.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class SocialGraphAdapter implements ISocialGraphInfrastructure , IUserInfraPort {
+public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfraPort {
     @Autowired
     private IUserService userServices;
     @Autowired
     private ISocialGraphService graphServices;
-
-    @Override
-    public void reportUser(Long currentUserId, Long userId) {
-
-    }
-
-    @Override
-    public void followUser(Long currentUserId, Long userId) {
-
-    }
-
-    @Override
-    public void blockUser(Long currentUserId, Long userId) {
-
-    }
 
     @Override
     public UserDomain findUserById(Long userId) {
@@ -35,8 +20,8 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure , IUserInf
     }
 
     @Override
-    public void updateUser(UserDomain user) {
-        userServices.update(user.toInfra());
+    public UserDomain updateUser(UserDomain user) {
+        return userServices.update(user.toInfra()).toDomain();
     }
 
     @Override

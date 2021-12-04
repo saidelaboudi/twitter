@@ -1,8 +1,10 @@
 package com.twitter.socialGraph.infra.model;
 
-import com.twitter.directMessage.domain.model.MessageDomain;
-import com.twitter.directMessage.infra.model.Message;
+import com.twitter.directMessage.domain.model.ConversationDomain;
+import com.twitter.directMessage.infra.model.Conversation;
 import com.twitter.socialGraph.domain.model.UserDomain;
+import com.twitter.tweet.domain.model.TweetDomain;
+import com.twitter.tweet.infra.model.Tweet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,18 +29,34 @@ public class User {
     @OneToOne
     private SocialGraph socialGraph;
     @OneToMany
-    private List<Message> messagesSent;
+    private List<Conversation> conversations;
     @OneToMany
-    private List<Message> messagesReceived;
+    private List<Tweet> tweets;
+    @OneToMany
+    private List<Tweet> retweets;
+    @OneToMany
+    private List<Tweet> sharedTweets;
 
     public UserDomain toDomain() {
-        List<MessageDomain> messagesSent = new ArrayList<MessageDomain>();
-        List<MessageDomain> messagesReceived = new ArrayList<MessageDomain>();
-        this.messagesSent.forEach(message->{
-            messagesSent.add(message.toDomain());
+        List<ConversationDomain> conversations = new ArrayList<>();
+        this.conversations.forEach(conversation->{
+            conversations.add(conversation.toDomain());
         });
-        this.messagesReceived.forEach(message->{
-            messagesReceived.add(message.toDomain());
+
+
+        List<TweetDomain> tweets = new ArrayList<>();
+        this.tweets.forEach(tweet->{
+            tweets.add(tweet.toDomain());
+        });
+
+        List<TweetDomain> retweets = new ArrayList<>();
+        this.retweets.forEach(tweet->{
+            retweets.add(tweet.toDomain());
+        });
+
+        List<TweetDomain> shareTweets = new ArrayList<>();
+        this.sharedTweets.forEach(tweet->{
+            shareTweets.add(tweet.toDomain());
         });
 
         return new UserDomain(
@@ -49,8 +67,10 @@ public class User {
                 this.email,
                 this.phone,
                 this.socialGraph.toDomain(),
-                messagesSent,
-                messagesReceived
+                conversations,
+                tweets,
+                retweets,
+                shareTweets
         );
     }
 }

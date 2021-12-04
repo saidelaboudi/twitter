@@ -12,4 +12,9 @@ public class DirectMessageService implements IDirectMessageService {
     public Message findMessageById(Long messageId) {
         return directMessageRepository.findById(messageId).get();
     }
+
+    @Override
+    public Message updateMessage(Message message) {
+        return directMessageRepository.save(message);
+    }
 }
