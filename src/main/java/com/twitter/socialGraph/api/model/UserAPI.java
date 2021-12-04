@@ -1,12 +1,18 @@
 package com.twitter.socialGraph.api.model;
 
+import com.twitter.directMessage.api.model.ConversationAPI;
 import com.twitter.directMessage.api.model.MessageAPI;
+import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.directMessage.domain.model.MessageDomain;
 import com.twitter.socialGraph.domain.model.UserDomain;
+import com.twitter.tweet.api.model.TweetAPI;
+import com.twitter.tweet.domain.model.TweetDomain;
+import com.twitter.tweet.infra.model.Tweet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,17 +27,34 @@ public class UserAPI {
     private String email;
     private String phone;
     private SocialGraphAPI socialGraph;
-    private List<MessageAPI> messagesSent;
-    private List<MessageAPI> messagesReceived;
+    private List<ConversationAPI> conversations;
+    private List<TweetAPI> tweets;
+    private List<TweetAPI> retweets;
+    private List<TweetAPI> sharedTweets;
+
 
     public UserDomain toDomain() {
-        List<MessageDomain> messagesSent = new ArrayList<MessageDomain>();
-        List<MessageDomain> messagesReceived = new ArrayList<MessageDomain>();
-        this.messagesSent.forEach(message->{
-            messagesSent.add(message.toDomain());
-        });this.messagesReceived.forEach(message->{
-            messagesReceived.add(message.toDomain());
+        List<ConversationDomain> conversations = new ArrayList<>();
+        this.conversations.forEach(conversation->{
+            conversations.add(conversation.toDomain());
         });
+
+
+        List<TweetDomain> tweets = new ArrayList<>();
+        this.tweets.forEach(tweet->{
+            tweets.add(tweet.toDomain());
+        });
+
+        List<TweetDomain> retweets = new ArrayList<>();
+        this.retweets.forEach(tweet->{
+            retweets.add(tweet.toDomain());
+        });
+
+        List<TweetDomain> shareTweets = new ArrayList<>();
+        this.sharedTweets.forEach(tweet->{
+            shareTweets.add(tweet.toDomain());
+        });
+
         return new UserDomain(
                 this.id,
                 this.username,
@@ -40,8 +63,10 @@ public class UserAPI {
                 this.email,
                 this.phone,
                 this.socialGraph.toDomain(),
-                messagesSent,
-                messagesReceived
+                conversations,
+                tweets,
+                retweets,
+                shareTweets
         );
     }
 }

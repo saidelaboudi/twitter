@@ -1,5 +1,6 @@
 package com.twitter.directMessage.api.model;
 
+import com.twitter.directMessage.domain.model.GroupDomain;
 import com.twitter.directMessage.domain.model.MessageDomain;
 import com.twitter.directMessage.domain.model.ReactionDomain;
 import com.twitter.socialGraph.api.model.UserAPI;

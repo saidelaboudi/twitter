@@ -4,5 +4,5 @@ import com.twitter.directMessage.domain.model.GroupDomain;
 
 public interface IGroupInfraPort {
     public GroupDomain findGroupById(Long groupId);
-    public void update(GroupDomain group);
+    public GroupDomain update(GroupDomain group);
 }

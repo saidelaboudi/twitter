@@ -1,5 +1,6 @@
 package com.twitter.directMessage.api.ressource;
 
+import com.twitter.directMessage.api.model.ConversationAPI;
 import com.twitter.directMessage.api.model.MessageAPI;
 import com.twitter.directMessage.api.model.PatternAPI;
 import com.twitter.directMessage.api.model.ReactionAPI;
@@ -29,19 +30,19 @@ public class DirectMessageResources {
         directMessageApiPort.reactToMessage(messageId,reaction.toDomain());
     }
 
-    @PostMapping("/messages/{userId}/patters")
-    public List<MessageAPI> findUserMessages(@PathVariable Long userId, List<PatternAPI> patterns){
-        List<MessageAPI> messages = new ArrayList<MessageAPI>();
-        directMessageApiPort.findUserMessages(userId,patterns).forEach(message->{
-            messages.add(message.toApi());
+    @PostMapping("/conversations/{userId}/patters")
+    public List<ConversationAPI> findUserMessages(@PathVariable Long userId){
+        List<ConversationAPI> conversations =  new ArrayList<>();
+        directMessageApiPort.findUserMessages(userId).forEach(conversation->{
+            conversations.add(conversation.toApi());
         });
-        return messages;
+        return conversations;
     }
 
     @PostMapping("/messages/{groupId}/patters")
     public List<MessageAPI> findGroupMessages(@PathVariable Long groupId, List<PatternAPI> patterns){
         List<MessageAPI> messages = new ArrayList<MessageAPI>();
-        directMessageApiPort.findGroupMessages(groupId,patterns).forEach(message->{
+        directMessageApiPort.findGroupMessages(groupId).forEach(message->{
             messages.add(message.toApi());
         });
         return messages;

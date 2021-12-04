@@ -14,22 +14,26 @@ public class TweetUseCase implements ITweetPortToApi {
     private ITweetPortToInfra portToInfra;
     private IUserInfraPort userInfraPort;
     @Override
-    public void likeTweet(Long tweetId, UserAPI user) {
+    public TweetDomain likeTweet(Long tweetId, UserAPI user) {
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
-        ReactionDomain like = new ReactionDomain();
+        ReactionDomain like = new ReactionDomain(1L,user.toDomain(),null);
         tweet.addReaction(like);
+        return portToInfra.updateTweet(tweet);
     }
 
     @Override
-    public void dislikeTweet(Long tweetId, UserAPI user) {
+    public TweetDomain dislikeTweet(Long tweetId, UserAPI user) {
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
-        ReactionDomain dislike = new ReactionDomain();
+        ReactionDomain dislike = new ReactionDomain(1L,user.toDomain(),null);
         tweet.addReaction(dislike);
+        return portToInfra.updateTweet(tweet);
     }
 
     @Override
-    public void creatTweet(TweetDomain tweet) {
+    public UserDomain creatTweet(TweetDomain tweet) {
         portToInfra.createTweet(tweet);
+        tweet.getOwner().getTweets().add(tweet);
+        return userInfraPort.updateUser(tweet.getOwner());
     }
 
     @Override
@@ -49,20 +53,21 @@ public class TweetUseCase implements ITweetPortToApi {
     public void shareTweet(Long tweetId, Long userId) {
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
         UserDomain user = userInfraPort.findUserById(userId);
-        user.addSahredTweet(tweet);
+        user.getSharedTweets().add(tweet);
+        userInfraPort.updateUser(user);
     }
 
     @Override
     public void retweet(Long tweetId, Long userId) {
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
         UserDomain user = userInfraPort.findUserById(userId);
-        user.retweet(tweet);
+        user.getRetweets().add(tweet);
+        userInfraPort.updateUser(user);
     }
 
     @Override
-    public void reportTweet(Long tweetId, Long userId, ReportDomain report) {
+    public void reportTweet(Long tweetId, ReportDomain report) {
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
-        UserDomain user = userInfraPort.findUserById(userId);
-        tweet.report(user,report);
+        tweet.getReports().add(report);
     }
 }

@@ -11,25 +11,13 @@ public class UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void reportUser(Long currentUserId, Long userId) {
-
-    }
-
-    public void followUser(Long currentUserId, Long userId) {
-
-    }
-
-    public void blockUser(Long currentUserId, Long userId) {
-
-    }
-
     @Override
     public User findUserById(Long userId) {
         return userRepository.findById(userId).get();
     }
 
     @Override
-    public void update(User user) {
-        userRepository.save(user);
+    public User update(User user) {
+        return userRepository.save(user);
     }
 }

@@ -2,6 +2,7 @@ package com.twitter.tweet.domain.model;
 
 import com.twitter.socialGraph.api.model.UserAPI;
 import com.twitter.socialGraph.domain.model.UserDomain;
+import com.twitter.tweet.api.model.ReplyAPI;
 import com.twitter.tweet.infra.model.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,14 @@ public class ReplyDomain {
                 this.id,
                 this.message,
                 this.user.toInfra()
+        );
+    }
+
+    public ReplyAPI toAPI() {
+        return new ReplyAPI(
+                this.id,
+                this.message,
+                this.user.toAPI()
         );
     }
 }
