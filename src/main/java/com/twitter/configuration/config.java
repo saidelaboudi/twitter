@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class config {
     @Bean
-    public DirectMessage DirectMessageBean(){
+    public DirectMessage DirectMessageBean() {
         return new DirectMessage();
     }
 
     @Bean
-    public SocialGraph SocialGraphBean(){
+    public SocialGraph SocialGraphBean() {
         return new SocialGraph();
     }
 }

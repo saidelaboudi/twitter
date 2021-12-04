@@ -15,7 +15,7 @@ public class TweetController {
     public void likeTweet(@PathVariable Long tweetId, @RequestBody UserAPI user){
         tweetApiPort.likeTweet(tweetId,user);
     }
-    @PutMapping("/tweets/{tweetId}/like")
+    @PutMapping("/tweets/{tweetId}/dislike")
     public void dislikeTweet(@PathVariable Long tweetId, @RequestBody UserAPI user){
         tweetApiPort.dislikeTweet(tweetId,user);
     }

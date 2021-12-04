@@ -1,5 +1,6 @@
 package com.twitter.tweet.infra.service.impl;
 
+import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.infra.model.Tweet;
 import com.twitter.tweet.infra.repository.TweetRepository;
 import com.twitter.tweet.infra.service.ITweetService;
@@ -17,12 +18,17 @@ public class TweetService implements ITweetService {
     }
 
     @Override
-    public void createTweet(Tweet tweet) {
-        tweetRepository.save(tweet);
+    public Tweet createTweet(Tweet tweet) {
+        return tweetRepository.save(tweet);
     }
 
     @Override
     public void removeTweet(Tweet tweet) {
         tweetRepository.delete(tweet);
+    }
+
+    @Override
+    public Tweet updateTweet(Tweet tweet) {
+        return tweetRepository.save(tweet);
     }
 }
