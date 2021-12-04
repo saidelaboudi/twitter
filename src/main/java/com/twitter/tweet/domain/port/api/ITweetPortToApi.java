@@ -10,7 +10,7 @@ public interface ITweetPortToApi {
     void dislikeTweet(Long tweetId, UserAPI user);
     void creatTweet(TweetDomain tweet);
     void removeTweet(Long tweetId);
-    void replyToTweet(Long tweetId, ReplyDomain reply);
+    TweetDomain replyToTweet(Long tweetId, ReplyDomain reply);
     void shareTweet(Long tweetId, Long userId);
     void retweet(Long tweetId, Long userId);
     void reportTweet(Long tweetId, Long userId, ReportDomain report);

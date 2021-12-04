@@ -2,6 +2,7 @@ package com.twitter.tweet.infra.model;
 
 
 import com.twitter.socialGraph.infra.model.User;
+import com.twitter.tweet.domain.model.ReplyDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,12 @@ public class Reply {
     private String message;
     @OneToOne
     private User user;
+
+    public ReplyDomain toDomain() {
+        return new ReplyDomain(
+                this.id,
+                this.message,
+                this.user.toDomain()
+        );
+    }
 }

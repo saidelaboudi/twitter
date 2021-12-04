@@ -2,6 +2,7 @@ package com.twitter.tweet.infra.model;
 
 import com.twitter.socialGraph.api.model.UserAPI;
 import com.twitter.socialGraph.infra.model.User;
+import com.twitter.tweet.domain.model.ReportDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +21,12 @@ public class Report {
     private String message;
     @OneToOne
     private User user;
+
+    public ReportDomain toDomain() {
+        return new ReportDomain(
+                this.id,
+                this.message,
+                this.user.toDomain()
+        );
+    }
 }

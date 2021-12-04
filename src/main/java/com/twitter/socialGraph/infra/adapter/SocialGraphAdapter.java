@@ -13,14 +13,18 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure , IUserInf
     private IUserService userServices;
     @Autowired
     private ISocialGraphService graphServices;
+
+    @Override
     public void reportUser(Long currentUserId, Long userId) {
 
     }
 
+    @Override
     public void followUser(Long currentUserId, Long userId) {
 
     }
 
+    @Override
     public void blockUser(Long currentUserId, Long userId) {
 
     }
@@ -36,12 +40,12 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure , IUserInf
     }
 
     @Override
-    public SocialGraphDomain findSocialGraph(UserDomain currentUserDomain) {
-        return graphServices.findSocialGraphByOwner(currentUserDomain).toDomain();
+    public SocialGraphDomain findSocialGraph(UserDomain currentUser) {
+        return graphServices.findSocialGraphByOwner(currentUser).toDomain();
     }
 
     @Override
-    public SocialGraphDomain update(SocialGraphDomain socialGraphDomain) {
-        return graphServices.update(socialGraphDomain.toInfra()).toDomain();
+    public SocialGraphDomain update(SocialGraphDomain socialGraph) {
+        return graphServices.update(socialGraph.toInfra()).toDomain();
     }
 }
