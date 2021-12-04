@@ -21,12 +21,16 @@ public class UserAPI {
     private String email;
     private String phone;
     private SocialGraphAPI socialGraph;
-    private List<MessageAPI> messages;
+    private List<MessageAPI> messagesSent;
+    private List<MessageAPI> messagesReceived;
 
     public UserDomain toDomain() {
-        List<MessageDomain> messages = new ArrayList<MessageDomain>();
-        this.messages.forEach(message->{
-            messages.add(message.toDomain());
+        List<MessageDomain> messagesSent = new ArrayList<MessageDomain>();
+        List<MessageDomain> messagesReceived = new ArrayList<MessageDomain>();
+        this.messagesSent.forEach(message->{
+            messagesSent.add(message.toDomain());
+        });this.messagesReceived.forEach(message->{
+            messagesReceived.add(message.toDomain());
         });
         return new UserDomain(
                 this.id,
@@ -36,7 +40,8 @@ public class UserAPI {
                 this.email,
                 this.phone,
                 this.socialGraph.toDomain(),
-                messages
+                messagesSent,
+                messagesReceived
         );
     }
 }
