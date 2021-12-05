@@ -19,13 +19,11 @@ public class SocialGraph {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
-    private User owner;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<User> blocked;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<User> followed;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<User> reported;
 
     public SocialGraphDomain toDomain() {
@@ -43,7 +41,6 @@ public class SocialGraph {
         });
         return new SocialGraphDomain(
                 this.id,
-                this.owner.toDomain(),
                 blocked,
                 followed,
                 reported

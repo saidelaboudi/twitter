@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 public class SocialGraphDomain {
     private Long id;
-    private UserDomain owner;
     private List<UserDomain> blocked;
     private List<UserDomain> followed;
     private List<UserDomain> reported;
@@ -40,7 +39,6 @@ public class SocialGraphDomain {
         });
         return new SocialGraph(
                 this.id,
-                this.owner.toInfra(),
                 blockedInfra,
                 followedInfra,
                 reportedInfra
@@ -62,7 +60,6 @@ public class SocialGraphDomain {
         });
         return new SocialGraphAPI(
                 this.id,
-                this.owner.toAPI(),
                 blocked,
                 followed,
                 reported

@@ -5,26 +5,33 @@ import com.twitter.tweet.api.model.ReplyAPI;
 import com.twitter.tweet.api.model.ReportAPI;
 import com.twitter.tweet.api.model.TweetAPI;
 import com.twitter.tweet.domain.port.api.ITweetPortToApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/api")
 public class TweetController {
-    private ITweetPortToApi tweetApiPort;
+    private final ITweetPortToApi tweetApiPort;
 
-    @PutMapping("/tweets/{tweetId}/like")
-    public void likeTweet(@PathVariable Long tweetId, @RequestBody UserAPI user) {
-        tweetApiPort.likeTweet(tweetId, user);
+    public TweetController(ITweetPortToApi tweetApiPort) {
+        this.tweetApiPort = tweetApiPort;
     }
 
-    @PutMapping("/tweets/{tweetId}/dislike")
-    public void dislikeTweet(@PathVariable Long tweetId, @RequestBody UserAPI user) {
-        tweetApiPort.dislikeTweet(tweetId, user);
+    @PutMapping("/users/{userId}/tweets/{tweetId}/like")
+    public void likeTweet(@PathVariable Long tweetId, @PathVariable Long userId) {
+        tweetApiPort.likeTweet(tweetId, userId);
     }
 
-    @PostMapping("/tweets/create")
-    public void creatTweet(@RequestBody TweetAPI tweet) {
-        tweetApiPort.creatTweet(tweet.toDomain());
+    @PutMapping("/users/{userId}/tweets/{tweetId}/dislike")
+    public void dislikeTweet(@PathVariable Long tweetId, @PathVariable Long userId) {
+        tweetApiPort.dislikeTweet(tweetId, userId);
+    }
+
+    @PostMapping("/users/{userId}/tweets/creat")
+    public void creatTweet(@RequestBody TweetAPI tweet, @PathVariable Long userId) {
+        System.out.println(tweet.toString());
+        System.out.println(userId);
+        tweetApiPort.creatTweet(tweet.toDomain(), userId);
     }
 
     @PutMapping("/tweets/{tweetId}/remove")
@@ -37,17 +44,17 @@ public class TweetController {
         tweetApiPort.replyToTweet(tweetId, reply.toDomain());
     }
 
-    @GetMapping("/tweets/{tweetId}/shares/{userId}")
+    @GetMapping("/user/{userId}/shares/tweets/{tweetId}/")
     public void shareTweet(@PathVariable Long tweetId, @PathVariable Long userId) {
         tweetApiPort.shareTweet(tweetId, userId);
     }
 
-    @PutMapping("/tweets/{tweetId}/retweets/users/{userId}")
+    @PutMapping("/users/{userId}/retweets/{tweetId}/")
     public void retweet(@PathVariable Long tweetId, @PathVariable Long userId) {
         tweetApiPort.retweet(tweetId, userId);
     }
 
-    @PutMapping("tweets/{tweetId}/reports/{userId}")
+    @PutMapping("/users/{userId}/tweets/{tweetId}/reports")
     public void reportTweet(@PathVariable Long tweetId, @PathVariable Long userId, @RequestBody ReportAPI report) {
         tweetApiPort.reportTweet(tweetId, report.toDomain());
     }

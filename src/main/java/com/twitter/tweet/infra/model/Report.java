@@ -19,7 +19,7 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String message;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
     public ReportDomain toDomain() {

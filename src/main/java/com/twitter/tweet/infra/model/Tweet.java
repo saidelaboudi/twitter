@@ -23,26 +23,29 @@ public class Tweet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User owner;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Reaction> reactions;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Reply> replies;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Report> reports;
 
     public TweetDomain toDomain() {
         List<ReactionDomain> reactions =new ArrayList<>();
         List<ReplyDomain> replies =new ArrayList<>();
         List<ReportDomain> reports =new ArrayList<>();
-        this.reactions.forEach(reaction->{
+        if (!this.reactions.equals(null))
+            this.reactions.forEach(reaction->{
             reactions.add(reaction.toDomain());
         });
-        this.replies.forEach(reply->{
+        if (!this.replies.equals(null))
+            this.replies.forEach(reply->{
             replies.add(reply.toDomain());
         });
-        this.reports.forEach(report->{
+        if (!this.reports.equals(null))
+            this.reports.forEach(report->{
             reports.add(report.toDomain());
         });
         return new TweetDomain(

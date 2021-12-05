@@ -26,33 +26,37 @@ public class UserAPI {
     private String lastname;
     private String email;
     private String phone;
-    private SocialGraphAPI socialGraph;
-    private List<ConversationAPI> conversations;
-    private List<TweetAPI> tweets;
-    private List<TweetAPI> retweets;
-    private List<TweetAPI> sharedTweets;
+    private SocialGraphAPI socialGraph = new SocialGraphAPI();
+    private List<ConversationAPI> conversations = new ArrayList<ConversationAPI>();
+    private List<TweetAPI> tweets = new ArrayList<TweetAPI>();
+    private List<TweetAPI> retweets = new ArrayList<TweetAPI>();
+    private List<TweetAPI> sharedTweets= new ArrayList<TweetAPI>();
 
 
     public UserDomain toDomain() {
         List<ConversationDomain> conversations = new ArrayList<>();
-        this.conversations.forEach(conversation->{
-            conversations.add(conversation.toDomain());
-        });
+        if (!this.conversations.isEmpty())
+            this.conversations.forEach(conversation -> {
+                conversations.add(conversation.toDomain());
+            });
 
 
         List<TweetDomain> tweets = new ArrayList<>();
-        this.tweets.forEach(tweet->{
-            tweets.add(tweet.toDomain());
-        });
+        if (!this.tweets.isEmpty())
+            this.tweets.forEach(tweet -> {
+                tweets.add(tweet.toDomain());
+            });
 
         List<TweetDomain> retweets = new ArrayList<>();
-        this.retweets.forEach(tweet->{
-            retweets.add(tweet.toDomain());
-        });
+        if (!this.retweets.isEmpty())
+            this.retweets.forEach(tweet -> {
+                    retweets.add(tweet.toDomain());
+            });
 
         List<TweetDomain> shareTweets = new ArrayList<>();
-        this.sharedTweets.forEach(tweet->{
-            shareTweets.add(tweet.toDomain());
+        if (!this.sharedTweets.isEmpty())
+            this.sharedTweets.forEach(tweet -> {
+                shareTweets.add(tweet.toDomain());
         });
 
         return new UserDomain(

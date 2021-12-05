@@ -23,23 +23,25 @@ public class MessageDomain {
 
     public MessageAPI toApi() {
         List<ReactionAPI> reactions = new ArrayList<>();
-        this.reactions.forEach(reaction -> {
-            reactions.add(reaction.toAPI());
-        });
+        if (!this.reactions.equals(null))
+            this.reactions.forEach(reaction -> {
+                reactions.add(reaction.toAPI());
+            });
         return new MessageAPI(
                 this.id,
                 this.sender.toAPI(),
                 this.message,
                 reactions
-                );
+        );
     }
 
     public Message toInfra() {
         List<Reaction> reactions = new ArrayList<>();
-        this.reactions.forEach(reaction -> {
+        if (!this.reactions.equals(null))
+            this.reactions.forEach(reaction -> {
             reactions.add(reaction.toInfra());
         });
-        return new Message(this.id,this.sender.toInfra(),this.message,reactions);
+        return new Message(this.id, this.sender.toInfra(), this.message, reactions);
     }
 
     public void addReaction(ReactionDomain reaction) {

@@ -29,5 +29,6 @@ public class ReportDomain {
                 this.message,
                 this.user.toAPI()
         );
+
     }
 }

@@ -14,6 +14,11 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfr
     @Autowired
     private ISocialGraphService graphServices;
 
+    public SocialGraphAdapter(IUserService userServices, ISocialGraphService graphServices) {
+        this.userServices = userServices;
+        this.graphServices = graphServices;
+    }
+
     @Override
     public UserDomain findUserById(Long userId) {
         return userServices.findUserById(userId).toDomain();

@@ -16,15 +16,16 @@ import java.util.List;
 @AllArgsConstructor
 public class MessageAPI {
     private Long id;
-    private UserAPI sender;
+    private UserAPI sender = new UserAPI();
     private String message;
-    private List<ReactionAPI> reactions;
+    private List<ReactionAPI> reactions = new ArrayList<ReactionAPI>();
 
     public MessageDomain toDomain() {
         List<ReactionDomain> reactions = new ArrayList<>();
-        this.reactions.forEach(reaction -> {
-            reactions.add(reaction.toDomain());
-        });
+        if (!this.reactions.equals(null))
+            this.reactions.forEach(reaction -> {
+                reactions.add(reaction.toDomain());
+            });
         return new MessageDomain(this.id, this.sender.toDomain(), this.message, reactions);
     }
 }

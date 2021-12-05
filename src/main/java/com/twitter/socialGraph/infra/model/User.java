@@ -19,43 +19,45 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String firstname;
     private String lastname;
     private String email;
     private String phone;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     private SocialGraph socialGraph;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Conversation> conversations;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tweet> tweets;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tweet> retweets;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tweet> sharedTweets;
 
     public UserDomain toDomain() {
         List<ConversationDomain> conversations = new ArrayList<>();
-        this.conversations.forEach(conversation->{
+        this.conversations.forEach(conversation -> {
             conversations.add(conversation.toDomain());
         });
 
 
         List<TweetDomain> tweets = new ArrayList<>();
-        this.tweets.forEach(tweet->{
+        this.tweets.forEach(tweet -> {
             tweets.add(tweet.toDomain());
         });
 
         List<TweetDomain> retweets = new ArrayList<>();
-        this.retweets.forEach(tweet->{
+        this.retweets.forEach(tweet -> {
             retweets.add(tweet.toDomain());
         });
 
         List<TweetDomain> shareTweets = new ArrayList<>();
-        this.sharedTweets.forEach(tweet->{
+        this.sharedTweets.forEach(tweet -> {
             shareTweets.add(tweet.toDomain());
         });
 
