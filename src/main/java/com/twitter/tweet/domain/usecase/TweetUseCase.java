@@ -1,9 +1,8 @@
 package com.twitter.tweet.domain.usecase;
 
 import com.twitter.directMessage.domain.model.ReactionDomain;
-import com.twitter.socialGraph.api.model.UserAPI;
 import com.twitter.socialGraph.domain.model.UserDomain;
-import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
+import com.twitter.socialGraph.domain.port.service.IUserTweeterPort;
 import com.twitter.tweet.domain.model.ReplyDomain;
 import com.twitter.tweet.domain.model.ReportDomain;
 import com.twitter.tweet.domain.model.TweetDomain;
@@ -12,28 +11,39 @@ import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
 
 public class TweetUseCase implements ITweetPortToApi {
     private ITweetPortToInfra portToInfra;
-    private IUserInfraPort userInfraPort;
+    private IUserTweeterPort userInfraPort;
+
+    public TweetUseCase(ITweetPortToInfra portToInfra, IUserTweeterPort userInfraPort) {
+        this.portToInfra = portToInfra;
+        this.userInfraPort = userInfraPort;
+    }
+
     @Override
-    public TweetDomain likeTweet(Long tweetId, UserAPI user) {
+    public TweetDomain likeTweet(Long tweetId, Long userId) {
+        UserDomain user = userInfraPort.findUserById(userId);
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
-        ReactionDomain like = new ReactionDomain(1L,user.toDomain(),null);
+        ReactionDomain like = new ReactionDomain(1L, user);
         tweet.addReaction(like);
         return portToInfra.updateTweet(tweet);
     }
 
     @Override
-    public TweetDomain dislikeTweet(Long tweetId, UserAPI user) {
+    public TweetDomain dislikeTweet(Long tweetId, Long userId) {
+        UserDomain user = userInfraPort.findUserById(userId);
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
-        ReactionDomain dislike = new ReactionDomain(1L,user.toDomain(),null);
+        ReactionDomain dislike = new ReactionDomain(1L, user);
         tweet.addReaction(dislike);
         return portToInfra.updateTweet(tweet);
     }
 
     @Override
-    public UserDomain creatTweet(TweetDomain tweet) {
-        portToInfra.createTweet(tweet);
-        tweet.getOwner().getTweets().add(tweet);
-        return userInfraPort.updateUser(tweet.getOwner());
+    public void creatTweet(TweetDomain tweet, Long userId) {
+        UserDomain user = userInfraPort.findUserById(userId);
+        System.out.println("------" + user.getFirstname());
+//        tweet.setOwner(user);
+//        tweet.getOwner().getTweets().add(tweet);
+        userInfraPort.updateUser(user);//tweet.getOwner());
+//        return portToInfra.createTweet(tweet);
     }
 
     @Override

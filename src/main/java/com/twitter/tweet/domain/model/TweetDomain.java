@@ -43,13 +43,16 @@ public class TweetDomain {
         List<Reaction> reactions =new ArrayList<>();
         List<Reply> replies =new ArrayList<>();
         List<Report> reports =new ArrayList<>();
-        this.reactions.forEach(reaction->{
+        if (!this.reactions.equals(null))
+            this.reactions.forEach(reaction->{
             reactions.add(reaction.toInfra());
         });
-        this.replies.forEach(reply->{
+        if (!this.replies.equals(null))
+            this.replies.forEach(reply->{
             replies.add(reply.toInfra());
         });
-        this.reports.forEach(report->{
+        if (!this.reports.equals(null))
+            this.reports.forEach(report->{
             reports.add(report.toInfra());
         });
         return new Tweet(
@@ -65,13 +68,16 @@ public class TweetDomain {
         List<ReactionAPI> reactions =new ArrayList<>();
         List<ReplyAPI> replies =new ArrayList<>();
         List<ReportAPI> reports =new ArrayList<>();
-        this.reactions.forEach(reaction->{
+        if (!this.reactions.equals(null))
+            this.reactions.forEach(reaction->{
             reactions.add(reaction.toAPI());
         });
-        this.replies.forEach(reply->{
+        if (!this.replies.equals(null))
+            this.replies.forEach(reply->{
             replies.add(reply.toAPI());
         });
-        this.reports.forEach(report->{
+        if (!this.reports.equals(null))
+            this.reports.forEach(report->{
             reports.add(report.toAPI());
         });
         return new TweetAPI(

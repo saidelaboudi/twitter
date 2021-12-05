@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SocialGraphService implements ISocialGraphService {
-    @Autowired
-    private SocialGraphRepository socialGraphRepository;
+    private final SocialGraphRepository socialGraphRepository;
+
+    public SocialGraphService(SocialGraphRepository socialGraphRepository) {
+        this.socialGraphRepository = socialGraphRepository;
+    }
+
     @Override
     public SocialGraph update(SocialGraph socialGraph) {
         return socialGraphRepository.save(socialGraph);
     }
 
     @Override
-    public SocialGraph findSocialGraphByOwner(UserDomain currentUserDomain) {
-        return socialGraphRepository.findByOwner(currentUserDomain.toInfra());
+    public SocialGraph findSocialGraphByOwner(UserDomain currentUser) {
+        return currentUser.toInfra().getSocialGraph();
     }
 }

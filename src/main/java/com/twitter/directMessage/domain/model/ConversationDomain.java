@@ -21,7 +21,8 @@ public class ConversationDomain {
 
     public Conversation toInfra() {
         List<Message> messages = new ArrayList<>();
-        this.messages.forEach(message->{
+        if (!this.messages.equals(null))
+            this.messages.forEach(message->{
             messages.add(message.toInfra());
         });
         return new Conversation(
@@ -32,7 +33,8 @@ public class ConversationDomain {
 
     public ConversationAPI toApi() {
         List<MessageAPI> messages = new ArrayList<>();
-        this.messages.forEach(message->{
+        if (!this.messages.equals(null))
+            this.messages.forEach(message->{
             messages.add(message.toApi());
         });
         return new ConversationAPI(

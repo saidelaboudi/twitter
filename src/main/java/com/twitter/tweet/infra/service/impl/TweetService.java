@@ -7,6 +7,8 @@ import com.twitter.tweet.infra.service.ITweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class TweetService implements ITweetService {
     @Autowired
@@ -19,6 +21,9 @@ public class TweetService implements ITweetService {
 
     @Override
     public Tweet createTweet(Tweet tweet) {
+        tweet.setReactions(new ArrayList<>());
+        tweet.setReplies(new ArrayList<>());
+        tweet.setReports(new ArrayList<>());
         return tweetRepository.save(tweet);
     }
 

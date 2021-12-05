@@ -14,6 +14,10 @@ public class ReportAPI {
     private String message;
     private UserAPI user;
     public ReportDomain toDomain() {
-        return null;
+        return new ReportDomain(
+                this.id,
+                this.message,
+                this.user.toDomain()
+        );
     }
 }

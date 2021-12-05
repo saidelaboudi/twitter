@@ -1,6 +1,7 @@
 package com.twitter.socialGraph.api.ressource;
 
 import com.twitter.socialGraph.domain.port.api.ISocialGraphAPI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/api/socialGraph/users")
 public class SocialGraphApi {
-    private ISocialGraphAPI socialGraph;
+    private final ISocialGraphAPI socialGraph;
+
+    public SocialGraphApi(ISocialGraphAPI socialGraph) {
+        this.socialGraph = socialGraph;
+    }
+
     @PutMapping("/{currentUserId}/reports/{userId}")
     public void reportUser(@PathVariable Long currentUserId,@PathVariable  Long userId){
         socialGraph.reportUser(currentUserId,userId);

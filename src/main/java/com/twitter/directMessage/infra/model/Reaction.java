@@ -17,11 +17,13 @@ public class Reaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
-    private REACTION_TYPE reaction;
 
     public ReactionDomain toDomain() {
-        return new ReactionDomain();
+        return new ReactionDomain(
+                this.id,
+                this.user.toDomain()
+        );
     }
 }

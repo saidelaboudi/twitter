@@ -18,23 +18,26 @@ import java.util.List;
 @AllArgsConstructor
 public class TweetAPI {
     private Long id;
-    private UserAPI owner;
-    private List<ReactionAPI> reactions;
-    private List<ReplyAPI> replies;
-    private List<ReportAPI> reports;
+    private UserAPI owner = new UserAPI();
+    private List<ReactionAPI> reactions = new ArrayList<ReactionAPI>();
+    private List<ReplyAPI> replies=new ArrayList<ReplyAPI>();
+    private List<ReportAPI> reports=new ArrayList<ReportAPI>();
 
     public TweetDomain toDomain() {
         List<ReactionDomain> reactions = new ArrayList<>();
         List<ReplyDomain> replies = new ArrayList<>();
         List<ReportDomain> reports = new ArrayList<>();
         this.reactions.forEach(reaction -> {
-            reactions.add(reaction.toDomain());
+            if (!reaction.equals(null))
+                reactions.add(reaction.toDomain());
         });
-        this.replies.forEach(reaction -> {
-            replies.add(reaction.toDomain());
+        this.replies.forEach(reply -> {
+            if (!reply.equals(null))
+                replies.add(reply.toDomain());
         });
         this.reports.forEach(reaction -> {
-            reports.add(reaction.toDomain());
+            if (!reaction.equals(null))
+                reports.add(reaction.toDomain());
         });
         return new TweetDomain(this.id, this.owner.toDomain(), reactions, replies, reports);
     }

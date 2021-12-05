@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TweetInfraAdapter implements ITweetPortToInfra {
     @Autowired
     private ITweetService tweetServices;
+
+    public TweetInfraAdapter(ITweetService tweetServices) {
+        this.tweetServices = tweetServices;
+    }
+
     @Override
     public TweetDomain findTweetById(Long tweetId) {
         return tweetServices.findTweetById(tweetId).toDomain();

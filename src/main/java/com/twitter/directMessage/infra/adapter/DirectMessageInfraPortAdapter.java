@@ -6,6 +6,11 @@ import com.twitter.directMessage.infra.service.IDirectMessageService;
 
 public class DirectMessageInfraPortAdapter implements IDirectMessageInfraPort {
     private IDirectMessageService directMessageServices;
+
+    public DirectMessageInfraPortAdapter(IDirectMessageService directMessageServices) {
+        this.directMessageServices = directMessageServices;
+    }
+
     @Override
     public MessageDomain findMessageById(Long messageId) {
         return directMessageServices.findMessageById(messageId).toDomain();

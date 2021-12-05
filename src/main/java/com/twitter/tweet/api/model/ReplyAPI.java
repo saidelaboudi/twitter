@@ -14,6 +14,10 @@ public class ReplyAPI {
     private String message;
     private UserAPI user;
     public ReplyDomain toDomain() {
-        return null;
+        return new ReplyDomain(
+                this.id,
+                this.message,
+                this.user.toDomain()
+        );
     }
 }

@@ -13,6 +13,12 @@ import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
 import java.util.List;
 
 public class DirectMessage implements IDirectMessageApiPort {
+    public DirectMessage(IDirectMessageInfraPort directMessageInfra, IUserInfraPort userInfrastructure, IGroupInfraPort groupInfraPort) {
+        this.directMessageInfra = directMessageInfra;
+        this.userInfrastructure = userInfrastructure;
+        this.groupInfraPort = groupInfraPort;
+    }
+
     private IDirectMessageInfraPort directMessageInfra;
     private IUserInfraPort userInfrastructure;
     private IGroupInfraPort groupInfraPort;

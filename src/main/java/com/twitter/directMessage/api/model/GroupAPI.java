@@ -17,8 +17,8 @@ import java.util.List;
 public class GroupAPI {
     private Long id;
     private String name;
-    private List<UserAPI> members;
-    private List<MessageAPI> messages;
+    private List<UserAPI> members = new ArrayList<UserAPI>();
+    private List<MessageAPI> messages = new ArrayList<MessageAPI>();
 
     public GroupDomain toDomain() {
         List<UserDomain> users = new ArrayList<>();
