@@ -12,12 +12,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TweetAPI {
+public class TopicApi {
     private Long id;
-    private UserAPI owner;
-    private List<ReactionAPI> reactions;
-    private List<Object> replies;
-    private List<Object> reports;
+    private String description;
 
     public TweetDomain toDomain() {
         return null;
