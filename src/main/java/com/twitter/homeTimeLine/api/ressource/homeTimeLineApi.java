@@ -1,24 +1,26 @@
 package com.twitter.homeTimeLine.api.ressource;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.twitter.homeTimeLine.api.model.KeyWordsAPI;
+import com.twitter.homeTimeLine.domain.port.api.IHomeTimeLineApiPort;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/api/homeTimeLine")
 public class homeTimeLineApi {
+    private IHomeTimeLineApiPort homeTimeLine;
 
-
-    @PutMapping("/viewTweets")
+    @PostMapping("/viewTweets")
     public void viewTweets(){
-        //socialGraph.reportUser(currentUserId,userId);
+
     }
-    @PutMapping("/exploreTweetsByFilter")
-    public void exploreTweetsByFilter(){
-        //socialGraph.followUser(currentUserId,userId);
+    @PostMapping("/exploreTweetsByFilter")
+    public void exploreTweetsByFilter(@RequestBody List<KeyWordsAPI> keyworkds){
+
     }
-    @PutMapping("/seeTopics")
+    @PostMapping("/seeTopics")
     public void seeTopics(){
-        //socialGraph.blockUser(currentUserId,userId);
+
     }
 }
