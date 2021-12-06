@@ -1,5 +1,6 @@
 package com.twitter.searchService.domain.usecase;
 
+import com.twitter.searchService.domain.model.TopicDomain;
 import com.twitter.searchService.domain.port.api.ISearchServiceApi;
 import com.twitter.searchService.domain.port.infra.ISearchServiceInfrastructure;
 import com.twitter.socialGraph.domain.model.UserDomain;

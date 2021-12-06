@@ -1,5 +1,6 @@
 package com.twitter.searchService.infra.adapter;
 
+import com.twitter.searchService.domain.model.TopicDomain;
 import com.twitter.searchService.domain.port.infra.ISearchServiceInfrastructure;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
