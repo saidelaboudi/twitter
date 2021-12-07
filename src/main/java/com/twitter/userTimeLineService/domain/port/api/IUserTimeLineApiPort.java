@@ -1,11 +1,7 @@
 package com.twitter.userTimeLineService.domain.port.api;
 
-import com.twitter.userTimeLineService.domain.model.TweetsDomain;
+import com.twitter.tweet.domain.port.api.ITweetPortToApi;
 
-import java.util.List;
+public interface IUserTimeLineApiPort extends ITweetPortToApi {
 
-public interface IUserTimeLineApiPort {
-    public List<TweetsDomain> viewTweetsByUser(String userName);
-    public List<TweetsDomain> viewLikedTweetsByUser(String userName);
-    public List<TweetsDomain> viewReTweetsAndCommentedTweetsByUser(String userName);
 }

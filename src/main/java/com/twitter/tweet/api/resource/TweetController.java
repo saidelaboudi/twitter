@@ -1,11 +1,9 @@
 package com.twitter.tweet.api.resource;
 
-import com.twitter.socialGraph.api.model.UserAPI;
 import com.twitter.tweet.api.model.ReplyAPI;
 import com.twitter.tweet.api.model.ReportAPI;
 import com.twitter.tweet.api.model.TweetAPI;
 import com.twitter.tweet.domain.port.api.ITweetPortToApi;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,7 +29,7 @@ public class TweetController {
     public void creatTweet(@RequestBody TweetAPI tweet, @PathVariable Long userId) {
         System.out.println(tweet.toString());
         System.out.println(userId);
-        tweetApiPort.creatTweet(tweet.toDomain(), userId);
+        tweetApiPort.createTweet(tweet.toDomain(), userId);
     }
 
     @PutMapping("/tweets/{tweetId}/remove")

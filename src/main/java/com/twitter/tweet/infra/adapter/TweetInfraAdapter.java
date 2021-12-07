@@ -5,6 +5,9 @@ import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
 import com.twitter.tweet.infra.service.ITweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TweetInfraAdapter implements ITweetPortToInfra {
     @Autowired
     private ITweetService tweetServices;
@@ -31,5 +34,32 @@ public class TweetInfraAdapter implements ITweetPortToInfra {
     @Override
     public TweetDomain updateTweet(TweetDomain tweet) {
         return tweetServices.updateTweet(tweet.toInfra()).toDomain();
+    }
+
+    @Override
+    public List<TweetDomain> getTweetsByUser(String userName) {
+        List<TweetDomain> tweets = new ArrayList<TweetDomain>();
+        tweetServices.getTweetsByUser(userName).forEach(tweet -> {
+            tweets.add(tweet.toDomain());
+        });
+        return tweets;
+    }
+
+    @Override
+    public List<TweetDomain> getLikedTweetsByUser(String userName) {
+        List<TweetDomain> tweets = new ArrayList<TweetDomain>();
+        tweetServices.getLikedTweetsByUser(userName).forEach(tweet -> {
+            tweets.add(tweet.toDomain());
+        });
+        return tweets;
+    }
+
+    @Override
+    public List<TweetDomain> getReTweetsAndCommentedTweetsByUser(String userName) {
+        List<TweetDomain> tweets = new ArrayList<TweetDomain>();
+        tweetServices.getReTweetsAndCommentedTweetsByUser(userName).forEach(tweet -> {
+            tweets.add(tweet.toDomain());
+        });
+        return tweets;
     }
 }

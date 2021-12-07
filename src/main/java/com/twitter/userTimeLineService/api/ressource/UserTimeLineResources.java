@@ -1,7 +1,6 @@
 package com.twitter.userTimeLineService.api.ressource;
 
 import com.twitter.userTimeLineService.api.model.TweetsAPI;
-import com.twitter.userTimeLineService.domain.model.TweetsDomain;
 import com.twitter.userTimeLineService.domain.port.api.IUserTimeLineApiPort;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,7 @@ public class UserTimeLineResources {
     public List<TweetsAPI> viewTweetsByUser(String userName){
         List<TweetsAPI> tweets = new ArrayList<TweetsAPI>();
         userTimeLineApiPort.viewTweetsByUser(userName).forEach(tweet->{
-            tweets.add(tweet.toAPI());
+            tweets.add((TweetsAPI) tweet.toAPI());
         });
 
         return tweets;
