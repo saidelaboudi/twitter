@@ -25,8 +25,8 @@ public class TweetController {
         tweetApiPort.dislikeTweet(tweetId, userId);
     }
 
-    @PostMapping("/users/{userId}/tweets/creat")
-    public void creatTweet(@RequestBody TweetAPI tweet, @PathVariable Long userId) {
+    @PostMapping("/users/{userId}/tweets/create")
+    public void createTweet(@RequestBody TweetAPI tweet, @PathVariable Long userId) {
         System.out.println(tweet.toString());
         System.out.println(userId);
         tweetApiPort.createTweet(tweet.toDomain(), userId);

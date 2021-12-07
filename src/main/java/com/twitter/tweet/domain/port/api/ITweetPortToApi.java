@@ -15,7 +15,7 @@ public interface ITweetPortToApi {
     void shareTweet(Long tweetId, Long userId);
     void retweet(Long tweetId, Long userId);
     void reportTweet(Long tweetId,ReportDomain report);
-    List<TweetDomain> viewTweetsByUser(String userName);
-    List<TweetDomain> viewLikedTweetsByUser(String userName);
-    List<TweetDomain> viewReTweetsAndCommentedTweetsByUser(String userName);
+    List<TweetDomain> viewTweetsByUser(Long userId);
+    List<TweetDomain> viewLikedTweetsByUser(Long userId);
+    List<TweetDomain> viewReTweetsAndCommentedTweetsByUser(Long userId);
 }

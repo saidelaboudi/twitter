@@ -1,6 +1,6 @@
 package com.twitter.userTimeLineService.api.ressource;
 
-import com.twitter.userTimeLineService.api.model.TweetsAPI;
+import com.twitter.tweet.api.model.TweetAPI;
 import com.twitter.userTimeLineService.domain.port.api.IUserTimeLineApiPort;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,27 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/api/userTimeLine")
+@RequestMapping("/v1/api/userTimeLines")
 public class UserTimeLineResources {
     private IUserTimeLineApiPort userTimeLineApiPort;
 
-    @PostMapping("/{userName}")
-    public List<TweetsAPI> viewTweetsByUser(String userName){
-        List<TweetsAPI> tweets = new ArrayList<TweetsAPI>();
-        userTimeLineApiPort.viewTweetsByUser(userName).forEach(tweet->{
-            tweets.add((TweetsAPI) tweet.toAPI());
+    @PostMapping("/{userId}/tweets")
+    public List<TweetAPI> viewTweetsByUser(Long userId){
+        List<TweetAPI> tweets = new ArrayList<TweetAPI>();
+        userTimeLineApiPort.viewTweetsByUser(userId).forEach(tweet->{
+            tweets.add((TweetAPI) tweet.toAPI());
         });
 
         return tweets;
     }
 
-    @PostMapping("/likedTweets/{userName}")
-    public List<TweetsAPI> viewLikedTweetsByUser(String userName){
+    @PostMapping("/{userId}/tweets/likedTweets")
+    public List<TweetAPI> viewLikedTweetsByUser(Long userId){
         return null;
     }
 
-    @PostMapping("/reTweets-commentedTweets/{userName}")
-    public List<TweetsAPI> viewReTweetsAndCommentedTweetsByUser(String userName){
+    @PostMapping("/{userId}/tweets/reTweets-commentedTweets")
+    public List<TweetAPI> viewReTweetsAndCommentedTweetsByUser(Long userName){
         return null;
     }
 

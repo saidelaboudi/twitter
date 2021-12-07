@@ -85,16 +85,16 @@ public class TweetUseCase implements ITweetPortToApi {
     }
 
     @Override
-    public List<TweetDomain> viewTweetsByUser(String userName) {
-        return portToInfra.getTweetsByUser(userName);
+    public List<TweetDomain> viewTweetsByUser(Long userId) {
+        return portToInfra.getTweetsByUser(userId);
     }
 
     @Override
-    public List<TweetDomain> viewLikedTweetsByUser(String userName) {
-        return portToInfra.getLikedTweetsByUser(userName);    }
+    public List<TweetDomain> viewLikedTweetsByUser(Long userId) {
+        return portToInfra.getLikedTweetsByUser(userId);    }
 
     @Override
-    public List<TweetDomain> viewReTweetsAndCommentedTweetsByUser(String userName) {
-        return portToInfra.getReTweetsAndCommentedTweetsByUser(userName);
+    public List<TweetDomain> viewReTweetsAndCommentedTweetsByUser(Long userId) {
+        return portToInfra.getReTweetsAndCommentedTweetsByUser(userId);
     }
 }

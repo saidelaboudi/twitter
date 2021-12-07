@@ -38,17 +38,17 @@ public class TweetService implements ITweetService {
     }
 
     @Override
-    public List<Tweet> getTweetsByUser(String userName) {
-        return tweetRepository.findByUserName(userName);
+    public List<Tweet> getTweetsByUser(Long userId) {
+        return tweetRepository.findByUserID(userId);
     }
 
     @Override
-    public List<Tweet> getLikedTweetsByUser(String userName) {
+    public List<Tweet> getLikedTweetsByUser(Long userId) {
         return null;
     }
 
     @Override
-    public List<Tweet> getReTweetsAndCommentedTweetsByUser(String userName) {
+    public List<Tweet> getReTweetsAndCommentedTweetsByUser(Long userId) {
         return null;
     }
 }

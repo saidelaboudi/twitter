@@ -9,7 +9,7 @@ public interface ITweetService {
     public Tweet createTweet(Tweet tweet);
     public void removeTweet(Tweet tweet);
     Tweet updateTweet(Tweet tweet);
-    public List<Tweet> getTweetsByUser(String userName);
-    public List<Tweet> getLikedTweetsByUser(String userName);
-    public List<Tweet> getReTweetsAndCommentedTweetsByUser(String userName);
+    public List<Tweet> getTweetsByUser(Long userId);
+    public List<Tweet> getLikedTweetsByUser(Long userId);
+    public List<Tweet> getReTweetsAndCommentedTweetsByUser(Long userId);
 }
