@@ -13,7 +13,7 @@ public class SearchServiceAdapter implements ISearchServiceInfrastructure {
     private ITopicService topicService;
 
     @Override
-    public List<UserDomain> searchByUser(String user) {
+    public List<UserDomain> searchByUsername(String user) {
         return null;
     }
 
