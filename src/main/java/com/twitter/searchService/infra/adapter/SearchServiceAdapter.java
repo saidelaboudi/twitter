@@ -21,7 +21,7 @@ public class SearchServiceAdapter implements ISearchServiceInfrastructure {
 
     @Override
     public List<UserDomain> searchByUsername(String username) {
-        return userInfraPort.findUsersByUsername(username);
+        return userInfraPort.findUsersByUsernameContains(username);
     }
 
     @Override

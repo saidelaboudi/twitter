@@ -40,7 +40,7 @@ public class TweetService implements ITweetService {
 
     @Override
     public List<Tweet> getTweetsByUser(Long userId) {
-        return tweetRepository.findByUserID(userId);
+        return null;
     }
 
     @Override

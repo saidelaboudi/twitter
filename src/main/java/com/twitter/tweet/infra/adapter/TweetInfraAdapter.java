@@ -2,11 +2,13 @@ package com.twitter.tweet.infra.adapter;
 
 import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
+import com.twitter.tweet.infra.model.Tweet;
 import com.twitter.tweet.infra.service.ITweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TweetInfraAdapter implements ITweetPortToInfra {
     @Autowired
@@ -56,11 +58,7 @@ public class TweetInfraAdapter implements ITweetPortToInfra {
 
     @Override
     public List<TweetDomain> getReTweetsAndCommentedTweetsByUser(Long userId) {
-        List<TweetDomain> tweets = new ArrayList<TweetDomain>();
-        tweetServices.getReTweetsAndCommentedTweetsByUser(userId).forEach(tweet -> {
-            tweets.add(tweet.toDomain());
-        });
-        return tweets;
+        return tweetServices.getReTweetsAndCommentedTweetsByUser(userId).stream().map(Tweet::toDomain).collect(Collectors.toList());
     }
 
     @Override

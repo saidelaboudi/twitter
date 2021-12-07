@@ -26,12 +26,15 @@ import org.springframework.context.annotation.Configuration;
 public class config {
     @Bean
     public SocialGraphAdapter SocialGraphAdapterBean(IUserService userServices,
-                                                     ISocialGraphService graphServices){
-        return new SocialGraphAdapter(userServices,graphServices);
+                                                     ISocialGraphService graphServices) {
+        return new SocialGraphAdapter(userServices, graphServices);
     }
-    @Bean GroupInfraAdapter GroupInfraAdapterBean(IGroupeService iGroupeService){
+
+    @Bean
+    GroupInfraAdapter GroupInfraAdapterBean(IGroupeService iGroupeService) {
         return new GroupInfraAdapter(iGroupeService);
     }
+
     @Bean
     public DirectMessage DirectMessageBean(IDirectMessageInfraPort directMessageInfra,
                                            IUserInfraPort userInfrastructure,
@@ -44,9 +47,10 @@ public class config {
     }
 
     @Bean
-    public DirectMessageInfraPortAdapter DirectMessageInfraPortAdapterBean(IDirectMessageService directMessageServices){
+    public DirectMessageInfraPortAdapter DirectMessageInfraPortAdapterBean(IDirectMessageService directMessageServices) {
         return new DirectMessageInfraPortAdapter(directMessageServices);
     }
+
     @Bean
     public SocialGraph SocialGraphBean(ISocialGraphInfrastructure iSocialGraphInfrastructure,
                                        IUserInfraPort iUserInfraPort) {
@@ -65,7 +69,8 @@ public class config {
     }
 
     @Bean
-    public TweetInfraAdapter TweetInfraAdapterBean(ITweetService tweetServices){
+    public TweetInfraAdapter TweetInfraAdapterBean(ITweetService tweetServices) {
         return new TweetInfraAdapter(tweetServices);
     }
+
 }

@@ -39,6 +39,21 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfr
     }
 
     @Override
+    public List<UserDomain> findUsersByUsernameContains(String username) {
+        return userServices.findUsersByUsernameContains(username).stream().map(User::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDomain saveUser(UserDomain user) {
+        return userServices.saveUser(user.toInfra()).toDomain();
+    }
+
+    @Override
+    public List<UserDomain> getAllUsers() {
+        return userServices.getAllUsers().stream().map(User::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
     public SocialGraphDomain findSocialGraph(UserDomain currentUser) {
         return graphServices.findSocialGraphByOwner(currentUser).toDomain();
     }
