@@ -10,8 +10,8 @@ public class UserCase implements ISearchServiceApi {
     private ISearchServiceInfrastructure iSearchServiceInfrastructure;
 
     @Override
-    public List<UserDomain> searchByUser(String user) {
-        return iSearchServiceInfrastructure.searchByUser(user);
+    public List<UserDomain> searchByUsername(String username) {
+        return iSearchServiceInfrastructure.searchByUser(username);
     }
 
     @Override
