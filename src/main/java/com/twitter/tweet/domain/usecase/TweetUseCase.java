@@ -9,6 +9,9 @@ import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.domain.port.api.ITweetPortToApi;
 import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TweetUseCase implements ITweetPortToApi {
     private ITweetPortToInfra portToInfra;
     private IUserTweeterPort userInfraPort;
@@ -37,7 +40,7 @@ public class TweetUseCase implements ITweetPortToApi {
     }
 
     @Override
-    public void creatTweet(TweetDomain tweet, Long userId) {
+    public void createTweet(TweetDomain tweet, Long userId) {
         UserDomain user = userInfraPort.findUserById(userId);
         System.out.println("------" + user.getFirstname());
 //        tweet.setOwner(user);
@@ -79,5 +82,19 @@ public class TweetUseCase implements ITweetPortToApi {
     public void reportTweet(Long tweetId, ReportDomain report) {
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
         tweet.getReports().add(report);
+    }
+
+    @Override
+    public List<TweetDomain> viewTweetsByUser(String userName) {
+        return portToInfra.getTweetsByUser(userName);
+    }
+
+    @Override
+    public List<TweetDomain> viewLikedTweetsByUser(String userName) {
+        return portToInfra.getLikedTweetsByUser(userName);    }
+
+    @Override
+    public List<TweetDomain> viewReTweetsAndCommentedTweetsByUser(String userName) {
+        return portToInfra.getReTweetsAndCommentedTweetsByUser(userName);
     }
 }

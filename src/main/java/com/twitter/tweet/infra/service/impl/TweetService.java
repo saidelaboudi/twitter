@@ -1,6 +1,5 @@
 package com.twitter.tweet.infra.service.impl;
 
-import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.infra.model.Tweet;
 import com.twitter.tweet.infra.repository.TweetRepository;
 import com.twitter.tweet.infra.service.ITweetService;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TweetService implements ITweetService {
@@ -35,5 +35,20 @@ public class TweetService implements ITweetService {
     @Override
     public Tweet updateTweet(Tweet tweet) {
         return tweetRepository.save(tweet);
+    }
+
+    @Override
+    public List<Tweet> getTweetsByUser(String userName) {
+        return tweetRepository.findByUserName(userName);
+    }
+
+    @Override
+    public List<Tweet> getLikedTweetsByUser(String userName) {
+        return null;
+    }
+
+    @Override
+    public List<Tweet> getReTweetsAndCommentedTweetsByUser(String userName) {
+        return null;
     }
 }
