@@ -1,6 +1,7 @@
 package com.twitter.userTimeLineService.api.ressource;
 
 import com.twitter.tweet.api.model.TweetAPI;
+import com.twitter.tweet.domain.port.api.ITweetPortToApi;
 import com.twitter.userTimeLineService.domain.port.api.IUserTimeLineApiPort;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/api/userTimeLines")
 public class UserTimeLineResources {
-    private IUserTimeLineApiPort userTimeLineApiPort;
+    private ITweetPortToApi userTimeLineApiPort;
 
     @PostMapping("/{userId}/tweets")
     public List<TweetAPI> viewTweetsByUser(Long userId){

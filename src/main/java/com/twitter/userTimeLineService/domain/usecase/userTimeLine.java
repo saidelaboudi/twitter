@@ -1,13 +1,14 @@
 package com.twitter.userTimeLineService.domain.usecase;
 
 import com.twitter.tweet.domain.model.TweetDomain;
+import com.twitter.tweet.domain.port.api.ITweetPortToApi;
 import com.twitter.userTimeLineService.domain.port.api.IUserTimeLineApiPort;
 
 import java.util.List;
 
 public class userTimeLine {
 
-    private IUserTimeLineApiPort tweetsPort;
+    private ITweetPortToApi tweetsPort;
 
     /**
      *
