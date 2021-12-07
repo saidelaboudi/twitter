@@ -19,9 +19,10 @@ import java.util.List;
 public class TweetAPI {
     private Long id;
     private UserAPI owner = new UserAPI();
+    private String text;
     private List<ReactionAPI> reactions = new ArrayList<ReactionAPI>();
-    private List<ReplyAPI> replies=new ArrayList<ReplyAPI>();
-    private List<ReportAPI> reports=new ArrayList<ReportAPI>();
+    private List<ReplyAPI> replies = new ArrayList<ReplyAPI>();
+    private List<ReportAPI> reports = new ArrayList<ReportAPI>();
 
     public TweetDomain toDomain() {
         List<ReactionDomain> reactions = new ArrayList<>();
@@ -39,6 +40,6 @@ public class TweetAPI {
             if (!reaction.equals(null))
                 reports.add(reaction.toDomain());
         });
-        return new TweetDomain(this.id, this.owner.toDomain(), reactions, replies, reports);
+        return new TweetDomain(this.id, this.owner.toDomain(), this.text, reactions, replies, reports);
     }
 }
