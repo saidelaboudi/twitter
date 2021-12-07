@@ -8,4 +8,7 @@ public interface IUserInfraPort {
     public UserDomain findUserById(Long userId);
     public UserDomain updateUser(UserDomain user);
     public List<UserDomain> findUsersByUsername(String username);
+    public List<UserDomain> findUsersByUsernameContains(String username);
+    public UserDomain saveUser(UserDomain user);
+    public List<UserDomain> getAllUsers();
 }

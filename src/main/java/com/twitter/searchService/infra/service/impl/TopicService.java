@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TopicService implements ITopicService {
-    @Autowired
-    private TopicRepository topicRepository;
+    private final TopicRepository topicRepository;
+
+    public TopicService(TopicRepository topicRepository) {
+        this.topicRepository = topicRepository;
+    }
 
     @Override
     public Topic update(Topic topic) {
