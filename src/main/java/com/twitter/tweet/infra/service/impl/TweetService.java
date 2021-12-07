@@ -1,5 +1,6 @@
 package com.twitter.tweet.infra.service.impl;
 
+import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.infra.model.Tweet;
 import com.twitter.tweet.infra.repository.TweetRepository;
 import com.twitter.tweet.infra.service.ITweetService;
@@ -49,6 +50,11 @@ public class TweetService implements ITweetService {
 
     @Override
     public List<Tweet> getReTweetsAndCommentedTweetsByUser(Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<TweetDomain> findTweetsContains(String keyword) {
         return null;
     }
 }

@@ -9,8 +9,8 @@ public interface ITweetPortToInfra {
     public TweetDomain createTweet(TweetDomain tweet);
     public void removeTweet(TweetDomain tweet);
     public TweetDomain updateTweet(TweetDomain tweet);
-
     public List<TweetDomain> getTweetsByUser(Long userId);
     public List<TweetDomain> getLikedTweetsByUser(Long userId);
     public List<TweetDomain> getReTweetsAndCommentedTweetsByUser(Long userId);
+    public List<TweetDomain> getTweetsByKeyword(String keyword);
 }
