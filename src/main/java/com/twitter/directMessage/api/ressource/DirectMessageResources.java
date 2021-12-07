@@ -1,7 +1,7 @@
 package com.twitter.directMessage.api.ressource;
 
+import com.twitter.directMessage.api.model.ConversationAPI;
 import com.twitter.directMessage.api.model.MessageAPI;
-import com.twitter.directMessage.api.model.PatternAPI;
 import com.twitter.directMessage.api.model.ReactionAPI;
 import com.twitter.directMessage.domain.port.api.IDirectMessageApiPort;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/api")
 public class DirectMessageResources {
-    private IDirectMessageApiPort directMessageApiPort;
+    private final IDirectMessageApiPort directMessageApiPort;
+
+    public DirectMessageResources(IDirectMessageApiPort directMessageApiPort) {
+        this.directMessageApiPort = directMessageApiPort;
+    }
 
     @PostMapping("/messages/users/{userId}")
     public void sendMessageToPerson(@RequestBody MessageAPI message,@PathVariable Long userId){
@@ -29,19 +33,19 @@ public class DirectMessageResources {
         directMessageApiPort.reactToMessage(messageId,reaction.toDomain());
     }
 
-    @PostMapping("/messages/{userId}/patters")
-    public List<MessageAPI> findUserMessages(@PathVariable Long userId, List<PatternAPI> patterns){
-        List<MessageAPI> messages = new ArrayList<MessageAPI>();
-        directMessageApiPort.findUserMessages(userId,patterns).forEach(message->{
-            messages.add(message.toApi());
+    @PostMapping("/conversations/{userId}/patters")
+    public List<ConversationAPI> findUserMessages(@PathVariable Long userId){
+        List<ConversationAPI> conversations =  new ArrayList<>();
+        directMessageApiPort.findUserMessages(userId).forEach(conversation->{
+            conversations.add(conversation.toApi());
         });
-        return messages;
+        return conversations;
     }
 
     @PostMapping("/messages/{groupId}/patters")
-    public List<MessageAPI> findGroupMessages(@PathVariable Long groupId, List<PatternAPI> patterns){
+    public List<MessageAPI> findGroupMessages(@PathVariable Long groupId){
         List<MessageAPI> messages = new ArrayList<MessageAPI>();
-        directMessageApiPort.findGroupMessages(groupId,patterns).forEach(message->{
+        directMessageApiPort.findGroupMessages(groupId).forEach(message->{
             messages.add(message.toApi());
         });
         return messages;

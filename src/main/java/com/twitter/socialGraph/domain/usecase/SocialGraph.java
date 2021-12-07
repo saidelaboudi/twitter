@@ -9,19 +9,33 @@ import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
 public class SocialGraph implements ISocialGraphAPI {
     private ISocialGraphInfrastructure iSocialGraphInfrastructure;
     private IUserInfraPort iUserInfraPort;
-    public void reportUser(Long currentUserId, Long userId) {
-        UserDomain currentUserDomain = iUserInfraPort.findUserById(userId);
-        UserDomain reportedUserDomain = iUserInfraPort.findUserById(userId);
-        SocialGraphDomain socialGraphDomain = iSocialGraphInfrastructure.findSocialGraph(currentUserDomain);
-        socialGraphDomain.report(reportedUserDomain);
-        iSocialGraphInfrastructure.update(socialGraphDomain);
+
+    public SocialGraph(ISocialGraphInfrastructure iSocialGraphInfrastructure, IUserInfraPort iUserInfraPort) {
+        this.iSocialGraphInfrastructure = iSocialGraphInfrastructure;
+        this.iUserInfraPort = iUserInfraPort;
     }
 
-    public void followUser(Long currentUserId, Long userId) {
-        iSocialGraphInfrastructure.followUser(currentUserId,userId);
+    public SocialGraphDomain reportUser(Long currentUserId, Long userId) {
+        UserDomain currentUser = iUserInfraPort.findUserById(userId);
+        UserDomain reportedUser = iUserInfraPort.findUserById(userId);
+        SocialGraphDomain socialGraph = iSocialGraphInfrastructure.findSocialGraph(currentUser);
+        socialGraph.getReported().add(reportedUser);
+        return iSocialGraphInfrastructure.update(socialGraph);
     }
 
-    public void blockUser(Long currentUserId, Long userId) {
-        iSocialGraphInfrastructure.blockUser(currentUserId,userId);
+    public SocialGraphDomain followUser(Long currentUserId, Long userId) {
+        UserDomain currentUser = iUserInfraPort.findUserById(userId);
+        UserDomain followedUser = iUserInfraPort.findUserById(userId);
+        SocialGraphDomain socialGraph = iSocialGraphInfrastructure.findSocialGraph(currentUser);
+        socialGraph.getFollowed().add(followedUser);
+        return iSocialGraphInfrastructure.update(socialGraph);
+    }
+
+    public SocialGraphDomain blockUser(Long currentUserId, Long userId) {
+        UserDomain currentUser = iUserInfraPort.findUserById(userId);
+        UserDomain blockedUser = iUserInfraPort.findUserById(userId);
+        SocialGraphDomain socialGraph = iSocialGraphInfrastructure.findSocialGraph(currentUser);
+        socialGraph.getBlocked().add(blockedUser);
+        return iSocialGraphInfrastructure.update(socialGraph);
     }
 }

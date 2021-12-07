@@ -20,15 +20,16 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User sender;
     private String message;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Reaction> reactions;
 
     public MessageDomain toDomain() {
         List<ReactionDomain> reactions =new ArrayList<>();
-        this.reactions.forEach(reaction->{
+        if (!this.reactions.equals(null))
+            this.reactions.forEach(reaction->{
             reactions.add(reaction.toDomain());
         });
     return new MessageDomain(this.id, this.sender.toDomain(), this.message,reactions);

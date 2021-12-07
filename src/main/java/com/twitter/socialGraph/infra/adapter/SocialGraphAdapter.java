@@ -8,21 +8,15 @@ import com.twitter.socialGraph.infra.service.ISocialGraphService;
 import com.twitter.socialGraph.infra.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class SocialGraphAdapter implements ISocialGraphInfrastructure , IUserInfraPort {
+public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfraPort {
     @Autowired
     private IUserService userServices;
     @Autowired
     private ISocialGraphService graphServices;
-    public void reportUser(Long currentUserId, Long userId) {
 
-    }
-
-    public void followUser(Long currentUserId, Long userId) {
-
-    }
-
-    public void blockUser(Long currentUserId, Long userId) {
-
+    public SocialGraphAdapter(IUserService userServices, ISocialGraphService graphServices) {
+        this.userServices = userServices;
+        this.graphServices = graphServices;
     }
 
     @Override
@@ -31,17 +25,17 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure , IUserInf
     }
 
     @Override
-    public void updateUser(UserDomain user) {
-        userServices.update(user.toInfra());
+    public UserDomain updateUser(UserDomain user) {
+        return userServices.update(user.toInfra()).toDomain();
     }
 
     @Override
-    public SocialGraphDomain findSocialGraph(UserDomain currentUserDomain) {
-        return graphServices.findSocialGraphByOwner(currentUserDomain).toDomain();
+    public SocialGraphDomain findSocialGraph(UserDomain currentUser) {
+        return graphServices.findSocialGraphByOwner(currentUser).toDomain();
     }
 
     @Override
-    public SocialGraphDomain update(SocialGraphDomain socialGraphDomain) {
-        return graphServices.update(socialGraphDomain.toInfra()).toDomain();
+    public SocialGraphDomain update(SocialGraphDomain socialGraph) {
+        return graphServices.update(socialGraph.toInfra()).toDomain();
     }
 }

@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SocialGraphRepository extends JpaRepository<SocialGraph,Long> {
-    public SocialGraph findByOwner(User owner);
 }

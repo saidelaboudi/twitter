@@ -8,19 +8,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements IUserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public void reportUser(Long currentUserId, Long userId) {
-
-    }
-
-    public void followUser(Long currentUserId, Long userId) {
-
-    }
-
-    public void blockUser(Long currentUserId, Long userId) {
-
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -29,7 +20,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void update(User user) {
-        userRepository.save(user);
+    public User update(User user) {
+        return userRepository.save(user);
     }
 }
