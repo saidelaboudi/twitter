@@ -62,4 +62,9 @@ public class TweetInfraAdapter implements ITweetPortToInfra {
         });
         return tweets;
     }
+
+    @Override
+    public List<TweetDomain> getTweetsByKeyword(String keyword) {
+        return tweetServices.findTweetsContains(keyword);
+    }
 }

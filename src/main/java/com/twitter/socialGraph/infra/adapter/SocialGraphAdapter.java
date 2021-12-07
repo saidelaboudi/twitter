@@ -4,9 +4,13 @@ import com.twitter.socialGraph.domain.model.SocialGraphDomain;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
 import com.twitter.socialGraph.domain.port.infra.ISocialGraphInfrastructure;
+import com.twitter.socialGraph.infra.model.User;
 import com.twitter.socialGraph.infra.service.ISocialGraphService;
 import com.twitter.socialGraph.infra.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfraPort {
     @Autowired
@@ -27,6 +31,11 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfr
     @Override
     public UserDomain updateUser(UserDomain user) {
         return userServices.update(user.toInfra()).toDomain();
+    }
+
+    @Override
+    public List<UserDomain> findUsersByUsername(String username) {
+        return userServices.findUsersByUsername(username).stream().map(User::toDomain).collect(Collectors.toList());
     }
 
     @Override

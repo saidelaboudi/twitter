@@ -1,5 +1,6 @@
 package com.twitter.tweet.infra.service;
 
+import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.infra.model.Tweet;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface ITweetService {
     public List<Tweet> getTweetsByUser(Long userId);
     public List<Tweet> getLikedTweetsByUser(Long userId);
     public List<Tweet> getReTweetsAndCommentedTweetsByUser(Long userId);
+
+    List<TweetDomain> findTweetsContains(String keyword);
 }

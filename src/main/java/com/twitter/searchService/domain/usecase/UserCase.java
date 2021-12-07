@@ -3,6 +3,7 @@ package com.twitter.searchService.domain.usecase;
 import com.twitter.searchService.domain.port.api.ISearchServiceApi;
 import com.twitter.searchService.domain.port.infra.ISearchServiceInfrastructure;
 import com.twitter.socialGraph.domain.model.UserDomain;
+import com.twitter.tweet.domain.model.TweetDomain;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class UserCase implements ISearchServiceApi {
     }
 
     @Override
-    public List<UserDomain> searchByKeyword(String keyword) {
-        return iSearchServiceInfrastructure.searchByKeyword(keyword);
+    public List<TweetDomain> searchByKeyword(String keyword) {
+        return iSearchServiceInfrastructure.searchTweetByKeyword(keyword);
     }
 
 }
