@@ -10,4 +10,5 @@ import java.util.List;
 public interface TweetRepository extends JpaRepository<Tweet,Long> {
     List<Tweet> findByUserID(Long userId);
     List<Tweet> findTweetsByTextContains(String keyword);
-}
+    List<Tweet> findByUsername(String userName);
+}g

@@ -37,27 +37,27 @@ public class TweetInfraAdapter implements ITweetPortToInfra {
     }
 
     @Override
-    public List<TweetDomain> getTweetsByUser(Long userId) {
+    public List<TweetDomain> getTweetsByUser(String userName) {
         List<TweetDomain> tweets = new ArrayList<TweetDomain>();
-        tweetServices.getTweetsByUser(userId).forEach(tweet -> {
+        tweetServices.getTweetsByUser(userName).forEach(tweet -> {
             tweets.add(tweet.toDomain());
         });
         return tweets;
     }
 
     @Override
-    public List<TweetDomain> getLikedTweetsByUser(Long userId) {
+    public List<TweetDomain> getLikedTweetsByUser(String userName) {
         List<TweetDomain> tweets = new ArrayList<TweetDomain>();
-        tweetServices.getLikedTweetsByUser(userId).forEach(tweet -> {
+        tweetServices.getLikedTweetsByUser(userName).forEach(tweet -> {
             tweets.add(tweet.toDomain());
         });
         return tweets;
     }
 
     @Override
-    public List<TweetDomain> getReTweetsAndCommentedTweetsByUser(Long userId) {
+    public List<TweetDomain> getReTweetsAndCommentedTweetsByUser(String userName) {
         List<TweetDomain> tweets = new ArrayList<TweetDomain>();
-        tweetServices.getReTweetsAndCommentedTweetsByUser(userId).forEach(tweet -> {
+        tweetServices.getReTweetsAndCommentedTweetsByUser(userName).forEach(tweet -> {
             tweets.add(tweet.toDomain());
         });
         return tweets;
