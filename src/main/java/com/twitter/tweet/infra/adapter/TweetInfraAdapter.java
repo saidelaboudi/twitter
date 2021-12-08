@@ -18,8 +18,9 @@ public class TweetInfraAdapter implements ITweetPortToInfra {
     @Autowired
     private IUserInfraPort userInfraPort;
 
-    public TweetInfraAdapter(ITweetService tweetServices) {
-        this.tweetServices=tweetServices;
+    public TweetInfraAdapter(ITweetService tweetServices, IUserInfraPort userInfraPort) {
+        this.tweetServices = tweetServices;
+        this.userInfraPort = userInfraPort;
     }
 
     @Override

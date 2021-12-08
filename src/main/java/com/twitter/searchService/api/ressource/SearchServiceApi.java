@@ -20,11 +20,6 @@ public class SearchServiceApi {
         return searchService.searchByUsername(username).stream().map(UserDomain::toAPI).collect(Collectors.toList());
     }
 
-    @GetMapping("/articles/{article}")
-    public List<UserAPI> searchByArticle(@PathVariable String article) {
-        return searchService.searchByArticle(article).stream().map(UserDomain::toAPI).collect(Collectors.toList());
-    }
-
     @GetMapping("/tweets/keywords/{keyword}")
     public List<TweetAPI> searchByKeyword(@PathVariable String keyword) {
         return searchService.searchByKeyword(keyword).stream().map(TweetDomain::toAPI).collect(Collectors.toList());

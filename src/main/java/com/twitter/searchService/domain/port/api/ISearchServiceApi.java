@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface ISearchServiceApi {
     public List<UserDomain> searchByUsername(String user);
-    public List<UserDomain> searchByArticle(String article);
     public List<TweetDomain> searchByKeyword(String keyword);
 }

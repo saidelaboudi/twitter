@@ -11,6 +11,11 @@ import java.util.List;
 
 public class UserUseCase implements IUserApiPort {
     private IUserInfraPort userInfraPort;
+
+    public UserUseCase(IUserInfraPort userInfraPort) {
+        this.userInfraPort = userInfraPort;
+    }
+
     @Override
     public UserDomain save(UserDomain user) {
         user.setConversations(new ArrayList<>());

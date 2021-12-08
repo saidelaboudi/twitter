@@ -16,6 +16,10 @@ public class TweetService implements ITweetService {
     @Autowired
     private TweetRepository tweetRepository;
 
+    public TweetService(TweetRepository tweetRepository) {
+        this.tweetRepository = tweetRepository;
+    }
+
     @Override
     public Tweet findTweetById(Long tweetId) {
         return tweetRepository.findById(tweetId).get();
@@ -51,6 +55,6 @@ public class TweetService implements ITweetService {
 
     @Override
     public Tweet findTweetByReaction(Reaction reaction) {
-        return tweetRepository.findByReaction(reaction);
+        return tweetRepository.findByReactionsContaining(reaction);
     }
 }

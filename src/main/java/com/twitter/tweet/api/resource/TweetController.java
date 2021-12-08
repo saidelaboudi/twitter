@@ -4,12 +4,14 @@ import com.twitter.tweet.api.model.ReplyAPI;
 import com.twitter.tweet.api.model.ReportAPI;
 import com.twitter.tweet.api.model.TweetAPI;
 import com.twitter.tweet.domain.port.api.ITweetPortToApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/api")
 public class TweetController {
-    private final ITweetPortToApi tweetApiPort;
+    @Autowired
+    private ITweetPortToApi tweetApiPort;
 
     public TweetController(ITweetPortToApi tweetApiPort) {
         this.tweetApiPort = tweetApiPort;

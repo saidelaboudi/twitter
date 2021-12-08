@@ -10,14 +10,13 @@ import java.util.List;
 public class UserCase implements ISearchServiceApi {
     private ISearchServiceInfrastructure iSearchServiceInfrastructure;
 
-    @Override
-    public List<UserDomain> searchByUsername(String username) {
-        return iSearchServiceInfrastructure.searchByUsername(username);
+    public UserCase(ISearchServiceInfrastructure iSearchServiceInfrastructure) {
+        this.iSearchServiceInfrastructure = iSearchServiceInfrastructure;
     }
 
     @Override
-    public List<UserDomain> searchByArticle(String article) {
-        return iSearchServiceInfrastructure.searchByArticle(article);
+    public List<UserDomain> searchByUsername(String username) {
+        return iSearchServiceInfrastructure.searchByUsername(username);
     }
 
     @Override

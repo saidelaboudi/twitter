@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "TWEETER_GROUP")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

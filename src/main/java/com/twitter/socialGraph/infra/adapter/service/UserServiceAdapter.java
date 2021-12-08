@@ -8,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserServiceAdapter implements IUserTweeterPort {
     @Autowired
     private IUserService userServices;
+
+    public UserServiceAdapter(IUserService userServices) {
+        this.userServices = userServices;
+    }
+
     @Override
     public UserDomain updateUser(UserDomain user) {
         return userServices.update(user.toInfra()).toDomain();

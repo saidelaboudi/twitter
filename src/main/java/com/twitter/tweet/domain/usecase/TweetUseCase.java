@@ -9,11 +9,13 @@ import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.domain.port.api.ITweetPortToApi;
 import com.twitter.tweet.domain.port.infra.IReactionInfraPort;
 import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 
 public class TweetUseCase implements ITweetPortToApi {
+    @Autowired
     private ITweetPortToInfra portToInfra;
+    @Autowired
     private IUserTweeterPort userInfraPort;
 
     public TweetUseCase(ITweetPortToInfra portToInfra, IUserTweeterPort userInfraPort) {

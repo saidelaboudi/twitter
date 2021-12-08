@@ -18,6 +18,12 @@ public class userTimeLine implements IUserTimeLineApiPort {
     private IUserTweeterPort userInfraPort;
     private IReactionInfraPort reactionInfraPort;
 
+    public userTimeLine(ITweetPortToInfra portToInfra, IUserTweeterPort userInfraPort, IReactionInfraPort reactionInfraPort) {
+        this.portToInfra = portToInfra;
+        this.userInfraPort = userInfraPort;
+        this.reactionInfraPort = reactionInfraPort;
+    }
+
     @Override
     public List<TweetDomain> viewTweetsByUser(Long userId) {
         return portToInfra.getTweetsByUser(userId);
