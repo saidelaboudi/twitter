@@ -1,5 +1,6 @@
 package com.twitter.tweet.infra.repository;
 
+import com.twitter.directMessage.infra.model.Reaction;
 import com.twitter.tweet.infra.model.Tweet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,4 +12,5 @@ public interface TweetRepository extends JpaRepository<Tweet,Long> {
     List<Tweet> findByUserID(Long userId);
     List<Tweet> findTweetsByTextContains(String keyword);
     List<Tweet> findByUsername(String userName);
+    Tweet findByReaction(Reaction reaction);
 }

@@ -7,9 +7,9 @@ import com.twitter.tweet.domain.model.ReplyDomain;
 import com.twitter.tweet.domain.model.ReportDomain;
 import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.domain.port.api.ITweetPortToApi;
+import com.twitter.tweet.domain.port.infra.IReactionInfraPort;
 import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TweetUseCase implements ITweetPortToApi {
@@ -42,11 +42,10 @@ public class TweetUseCase implements ITweetPortToApi {
     @Override
     public void createTweet(TweetDomain tweet, Long userId) {
         UserDomain user = userInfraPort.findUserById(userId);
-        System.out.println("------" + user.getFirstname());
-//        tweet.setOwner(user);
-//        tweet.getOwner().getTweets().add(tweet);
-        userInfraPort.updateUser(user);//tweet.getOwner());
-//        return portToInfra.createTweet(tweet);
+        tweet.setOwner(user);
+        tweet.getOwner().getTweets().add(tweet);
+        userInfraPort.updateUser(user);
+        portToInfra.createTweet(tweet);
     }
 
     @Override
@@ -84,17 +83,4 @@ public class TweetUseCase implements ITweetPortToApi {
         tweet.getReports().add(report);
     }
 
-    @Override
-    public List<TweetDomain> viewTweetsByUser(Long userId) {
-        return portToInfra.getTweetsByUser(userId);
-    }
-
-    @Override
-    public List<TweetDomain> viewLikedTweetsByUser(Long userId) {
-        return portToInfra.getLikedTweetsByUser(userId);    }
-
-    @Override
-    public List<TweetDomain> viewReTweetsAndCommentedTweetsByUser(Long userId) {
-        return portToInfra.getReTweetsAndCommentedTweetsByUser(userId);
-    }
 }
