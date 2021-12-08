@@ -1,5 +1,6 @@
 package com.twitter.socialGraph.infra.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.directMessage.infra.model.Conversation;
 import com.twitter.socialGraph.domain.model.UserDomain;
@@ -8,9 +9,12 @@ import com.twitter.tweet.infra.model.Tweet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,6 +31,14 @@ public class User {
     private String lastname;
     private String email;
     private String phone;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    @JsonFormat(timezone="UTC")
+    Date createdDate ;
+    @Column(name = "modified_date")
+    @LastModifiedDate
+    @JsonFormat(timezone="UTC")
+    Date modifiedDate ;
 
     @OneToOne(cascade = CascadeType.ALL)
     private SocialGraph socialGraph;

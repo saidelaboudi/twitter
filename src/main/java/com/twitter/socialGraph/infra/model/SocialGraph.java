@@ -1,13 +1,17 @@
 package com.twitter.socialGraph.infra.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.twitter.socialGraph.domain.model.SocialGraphDomain;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -25,6 +29,14 @@ public class SocialGraph {
     private List<User> followed;
     @OneToMany(cascade = CascadeType.ALL)
     private List<User> reported;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    @JsonFormat(timezone="UTC")
+    Date createdDate ;
+    @Column(name = "modified_date")
+    @LastModifiedDate
+    @JsonFormat(timezone="UTC")
+    Date modifiedDate ;
 
     public SocialGraphDomain toDomain() {
         List<UserDomain> blocked = new ArrayList<UserDomain>();

@@ -1,13 +1,17 @@
 package com.twitter.directMessage.infra.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.directMessage.domain.model.MessageDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,6 +25,15 @@ public class Conversation {
     private Long id;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Message> messages;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    @JsonFormat(timezone="UTC")
+    Date createdDate ;
+    @Column(name = "modified_date")
+    @LastModifiedDate
+    @JsonFormat(timezone="UTC")
+    Date modifiedDate ;
+
 
     public ConversationDomain toDomain() {
         List<MessageDomain> messages = new ArrayList<>();

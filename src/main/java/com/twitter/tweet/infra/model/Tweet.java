@@ -1,5 +1,6 @@
 package com.twitter.tweet.infra.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.twitter.directMessage.domain.model.ReactionDomain;
 import com.twitter.directMessage.infra.model.Reaction;
 import com.twitter.socialGraph.infra.model.User;
@@ -9,9 +10,12 @@ import com.twitter.tweet.domain.model.TweetDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -32,6 +36,14 @@ public class Tweet {
     private List<Reply> replies;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Report> reports;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    @JsonFormat(timezone="UTC")
+    Date createdDate ;
+    @Column(name = "modified_date")
+    @LastModifiedDate
+    @JsonFormat(timezone="UTC")
+    Date modifiedDate ;
 
     public TweetDomain toDomain() {
         List<ReactionDomain> reactions =new ArrayList<>();
