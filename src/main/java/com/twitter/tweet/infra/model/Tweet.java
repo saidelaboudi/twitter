@@ -25,6 +25,7 @@ public class Tweet {
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     private User owner;
+    private String text;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Reaction> reactions;
     @OneToMany(cascade = CascadeType.ALL)
@@ -51,6 +52,7 @@ public class Tweet {
         return new TweetDomain(
                 this.id,
                 this.owner.toDomain(),
+                this.text,
                 reactions,
                 replies,
                 reports

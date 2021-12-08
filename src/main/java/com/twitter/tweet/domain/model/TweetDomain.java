@@ -23,6 +23,7 @@ import java.util.List;
 public class TweetDomain {
     private Long id;
     private UserDomain owner;
+    private String text;
     private List<ReactionDomain> reactions;
     private List<ReplyDomain> replies;
     private List<ReportDomain> reports;
@@ -58,6 +59,7 @@ public class TweetDomain {
         return new Tweet(
                 this.id,
                 this.owner.toInfra(),
+                this.text,
                 reactions,
                 replies,
                 reports
@@ -83,6 +85,7 @@ public class TweetDomain {
         return new TweetAPI(
                 this.id,
                 this.owner.toAPI(),
+                this.text,
                 reactions,
                 replies,
                 reports
