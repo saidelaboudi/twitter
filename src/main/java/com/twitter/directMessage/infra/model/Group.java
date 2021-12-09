@@ -39,6 +39,14 @@ public class Group {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+
+    public Group(Long id, String name, List<User> members, List<Message> messages) {
+        this.id = id;
+        this.name = name;
+        this.members = members;
+        this.messages = messages;
+    }
+
     public GroupDomain toDomain() {
         List<UserDomain> members = new ArrayList<>();
         List<MessageDomain> messages = new ArrayList<>();

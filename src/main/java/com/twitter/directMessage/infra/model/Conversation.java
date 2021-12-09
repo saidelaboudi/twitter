@@ -34,6 +34,10 @@ public class Conversation {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+    public Conversation(Long id, List<Message> messages) {
+        this.id = id;
+        this.messages = messages;
+    }
 
     public ConversationDomain toDomain() {
         List<MessageDomain> messages = new ArrayList<>();

@@ -38,6 +38,13 @@ public class Message {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+    public Message(Long id, User sender, String message, List<Reaction> reactions) {
+        this.id = id;
+        this.sender = sender;
+        this.message = message;
+        this.reactions = reactions;
+    }
+
     public MessageDomain toDomain() {
         List<ReactionDomain> reactions =new ArrayList<>();
         if (!this.reactions.equals(null))

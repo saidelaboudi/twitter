@@ -34,6 +34,12 @@ public class Report {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+    public Report(Long id, String message, User user) {
+        this.id = id;
+        this.message = message;
+        this.user = user;
+    }
+
     public ReportDomain toDomain() {
         return new ReportDomain(
                 this.id,

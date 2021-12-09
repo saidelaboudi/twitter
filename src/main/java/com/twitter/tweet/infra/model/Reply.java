@@ -34,6 +34,12 @@ public class Reply {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+    public Reply(Long id, String message, User user) {
+        this.id = id;
+        this.message = message;
+        this.user = user;
+    }
+
     public ReplyDomain toDomain() {
         return new ReplyDomain(
                 this.id,

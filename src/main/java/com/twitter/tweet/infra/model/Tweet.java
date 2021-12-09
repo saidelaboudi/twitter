@@ -45,6 +45,15 @@ public class Tweet {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+    public Tweet(Long id, User owner, String text, List<Reaction> reactions, List<Reply> replies, List<Report> reports) {
+        this.id = id;
+        this.owner = owner;
+        this.text = text;
+        this.reactions = reactions;
+        this.replies = replies;
+        this.reports = reports;
+    }
+
     public TweetDomain toDomain() {
         List<ReactionDomain> reactions =new ArrayList<>();
         List<ReplyDomain> replies =new ArrayList<>();

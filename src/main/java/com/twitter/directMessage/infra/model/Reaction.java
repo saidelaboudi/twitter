@@ -32,6 +32,12 @@ public class Reaction {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+
+    public Reaction(Long id, User user) {
+        this.id = id;
+        this.user = user;
+    }
+
     public ReactionDomain toDomain() {
         return new ReactionDomain(
                 this.id,

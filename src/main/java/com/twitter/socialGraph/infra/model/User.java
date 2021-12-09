@@ -3,6 +3,8 @@ package com.twitter.socialGraph.infra.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.directMessage.infra.model.Conversation;
+import com.twitter.homeTimeLine.domain.model.TopicDomain;
+import com.twitter.homeTimeLine.infra.model.Topic;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.infra.model.Tweet;
@@ -16,6 +18,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -33,13 +36,12 @@ public class User {
     private String phone;
     @Column(name = "created_date", nullable = false, updatable = false)
     @CreatedDate
-    @JsonFormat(timezone="UTC")
-    Date createdDate ;
+    @JsonFormat(timezone = "UTC")
+    Date createdDate;
     @Column(name = "modified_date")
     @LastModifiedDate
-    @JsonFormat(timezone="UTC")
-    Date modifiedDate ;
-
+    @JsonFormat(timezone = "UTC")
+    Date modifiedDate;
     @OneToOne(cascade = CascadeType.ALL)
     private SocialGraph socialGraph;
     @OneToMany(cascade = CascadeType.ALL)
@@ -50,29 +52,25 @@ public class User {
     private List<Tweet> retweets;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Tweet> sharedTweets;
+    @OneToMany
+    private List<Topic> topics = new ArrayList<Topic>();
+
+    public User(Long id, String username, String firstname, String lastname, String email, String phone, SocialGraph socialGraph, List<Conversation> conversations, List<Tweet> tweets, List<Tweet> retweets, List<Tweet> sharedTweets, List<Topic> topics) {
+        this.id = id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+        this.socialGraph = socialGraph;
+        this.conversations = conversations;
+        this.tweets = tweets;
+        this.retweets = retweets;
+        this.sharedTweets = sharedTweets;
+        this.topics = topics;
+    }
 
     public UserDomain toDomain() {
-        List<ConversationDomain> conversations = new ArrayList<>();
-        this.conversations.forEach(conversation -> {
-            conversations.add(conversation.toDomain());
-        });
-
-
-        List<TweetDomain> tweets = new ArrayList<>();
-        this.tweets.forEach(tweet -> {
-            tweets.add(tweet.toDomain());
-        });
-
-        List<TweetDomain> retweets = new ArrayList<>();
-        this.retweets.forEach(tweet -> {
-            retweets.add(tweet.toDomain());
-        });
-
-        List<TweetDomain> shareTweets = new ArrayList<>();
-        this.sharedTweets.forEach(tweet -> {
-            shareTweets.add(tweet.toDomain());
-        });
-
         return new UserDomain(
                 this.id,
                 this.username,
@@ -81,10 +79,11 @@ public class User {
                 this.email,
                 this.phone,
                 this.socialGraph.toDomain(),
-                conversations,
-                tweets,
-                retweets,
-                shareTweets
+                this.conversations.stream().map(Conversation::toDomain).collect(Collectors.toList()),
+                this.tweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
+                this.retweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
+                this.sharedTweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
+                this.topics.stream().map(Topic::toDomain).collect(Collectors.toList())
         );
     }
 }

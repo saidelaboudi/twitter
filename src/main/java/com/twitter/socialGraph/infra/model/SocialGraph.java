@@ -38,6 +38,13 @@ public class SocialGraph {
     @JsonFormat(timezone="UTC")
     Date modifiedDate ;
 
+    public SocialGraph(Long id, List<User> blocked, List<User> followed, List<User> reported) {
+        this.id = id;
+        this.blocked = blocked;
+        this.followed = followed;
+        this.reported = reported;
+    }
+
     public SocialGraphDomain toDomain() {
         List<UserDomain> blocked = new ArrayList<UserDomain>();
         List<UserDomain> followed = new ArrayList<UserDomain>();
