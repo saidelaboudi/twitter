@@ -1,13 +1,7 @@
 package com.twitter.homeTimeLine.api.model;
 
-<<<<<<< HEAD
-import com.twitter.directMessage.domain.model.MessageDomain;
-import com.twitter.directMessage.domain.model.ReactionDomain;
 import com.twitter.homeTimeLine.domain.model.HomeTimeLineDomain;
 import com.twitter.homeTimeLine.domain.model.TweetDomain;
-=======
->>>>>>> c77fa98 (add architecture service)
-import com.twitter.socialGraph.api.model.UserAPI;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
