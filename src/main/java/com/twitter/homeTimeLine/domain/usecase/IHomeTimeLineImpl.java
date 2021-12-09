@@ -1,6 +1,5 @@
 package com.twitter.homeTimeLine.domain.usecase;
 
-import com.twitter.homeTimeLine.domain.model.TweetDomain;
 import com.twitter.homeTimeLine.domain.port.api.IHomeTimeLineApiPort;
 
 import java.util.List;
