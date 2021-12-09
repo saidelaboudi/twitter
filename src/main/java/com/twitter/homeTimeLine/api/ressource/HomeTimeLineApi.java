@@ -1,27 +1,24 @@
 package com.twitter.homeTimeLine.api.ressource;
 
 import com.twitter.homeTimeLine.domain.port.api.IHomeTimeLineApiPort;
-import com.twitter.searchService.domain.port.api.ISearchServiceApi;
 import com.twitter.tweet.api.model.TweetAPI;
 import com.twitter.tweet.domain.model.TweetDomain;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/api")
-public class HomeTimeLineApi {
-    private IHomeTimeLineApiPort homeTimeLinePort;
-    private ISearchServiceApi searchServiceApi;
-    @PostMapping("/home/timelines/users/{userId}")
-    public List<TweetAPI> viewTweets(@PathVariable Long userId){
-        return homeTimeLinePort.getAllHomeTimeLineTweets(userId);
+@RequestMapping("/v1/api/timelines/home")
+public class homeTimeLineApi {
+    private IHomeTimeLineApiPort homeTimeLine;
+
+    @GetMapping("/users/{userId}/followed/tweets")
+    public List<TweetAPI> getTweets(@PathVariable Long userId){
+        return homeTimeLine.getAllHomeTimeLineTweets(userId).stream().map(TweetDomain::toAPI).collect(Collectors.toList());
     }
-    @PostMapping("/exploreTweetsByFilter/{keyword}")
-    public List<TweetDomain> exploreTweetsByFilter(@PathVariable String keyword){
-        return searchServiceApi.searchByKeyword(keyword);
-    }
-    @PostMapping("/seeTopics")
-    public void seeTopics(){
+    @GetMapping("/users/{userId}/topics/tweets")
+    public List<TweetAPI> getTopicsByFollowedTopics(@PathVariable Long userId){
+        return homeTimeLine.getTweetsByFollowedTopicsOfUser(userId).stream().map(TweetDomain::toAPI).collect(Collectors.toList());
     }
 }
