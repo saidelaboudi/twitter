@@ -1,10 +1,12 @@
 package com.twitter.socialGraph.domain.usecase;
 
+import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.socialGraph.domain.model.SocialGraphDomain;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import com.twitter.socialGraph.domain.port.api.IUserApiPort;
 import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
 import com.twitter.socialGraph.infra.model.SocialGraph;
+import com.twitter.tweet.domain.model.TweetDomain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +20,10 @@ public class UserUseCase implements IUserApiPort {
 
     @Override
     public UserDomain save(UserDomain user) {
-        user.setConversations(new ArrayList<>());
-        user.setRetweets(new ArrayList<>());
-        user.setSharedTweets(new ArrayList<>());
-        user.setTweets(new ArrayList<>());
+        user.setConversations(new ArrayList<ConversationDomain>());
+        user.setRetweets(new ArrayList<TweetDomain>());
+        user.setSharedTweets(new ArrayList<TweetDomain>(0));
+        user.setTweets(new ArrayList<TweetDomain>());
         user.setSocialGraph(new SocialGraphDomain());
         return userInfraPort.saveUser(user);
     }

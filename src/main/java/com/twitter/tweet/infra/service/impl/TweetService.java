@@ -2,6 +2,8 @@ package com.twitter.tweet.infra.service.impl;
 
 import com.twitter.directMessage.infra.model.Reaction;
 import com.twitter.socialGraph.infra.model.User;
+import com.twitter.tweet.infra.model.Reply;
+import com.twitter.tweet.infra.model.Report;
 import com.twitter.tweet.infra.model.Tweet;
 import com.twitter.tweet.infra.repository.TweetRepository;
 import com.twitter.tweet.infra.service.ITweetService;
@@ -27,9 +29,9 @@ public class TweetService implements ITweetService {
 
     @Override
     public Tweet createTweet(Tweet tweet) {
-        tweet.setReactions(new ArrayList<>());
-        tweet.setReplies(new ArrayList<>());
-        tweet.setReports(new ArrayList<>());
+        tweet.setReactions(new ArrayList<Reaction>());
+        tweet.setReplies(new ArrayList<Reply>());
+        tweet.setReports(new ArrayList<Report>());
         return tweetRepository.save(tweet);
     }
 

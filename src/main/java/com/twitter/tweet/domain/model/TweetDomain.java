@@ -44,16 +44,13 @@ public class TweetDomain {
         List<Reaction> reactions =new ArrayList<>();
         List<Reply> replies =new ArrayList<>();
         List<Report> reports =new ArrayList<>();
-        if (!this.reactions.equals(null))
-            this.reactions.forEach(reaction->{
+        this.reactions.forEach(reaction->{
             reactions.add(reaction.toInfra());
         });
-        if (!this.replies.equals(null))
-            this.replies.forEach(reply->{
+        this.replies.forEach(reply->{
             replies.add(reply.toInfra());
         });
-        if (!this.reports.equals(null))
-            this.reports.forEach(report->{
+        this.reports.forEach(report->{
             reports.add(report.toInfra());
         });
         return new Tweet(

@@ -1,22 +1,15 @@
 package com.twitter.socialGraph.infra.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.directMessage.infra.model.Conversation;
-import com.twitter.homeTimeLine.domain.model.TopicDomain;
 import com.twitter.homeTimeLine.infra.model.Topic;
 import com.twitter.socialGraph.domain.model.UserDomain;
-import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.infra.model.Tweet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,14 +27,6 @@ public class User {
     private String lastname;
     private String email;
     private String phone;
-    @Column(name = "created_date", nullable = false, updatable = false)
-    @CreatedDate
-    @JsonFormat(timezone = "UTC")
-    Date createdDate;
-    @Column(name = "modified_date")
-    @LastModifiedDate
-    @JsonFormat(timezone = "UTC")
-    Date modifiedDate;
     @OneToOne(cascade = CascadeType.ALL)
     private SocialGraph socialGraph;
     @OneToMany(cascade = CascadeType.ALL)
@@ -55,20 +40,6 @@ public class User {
     @OneToMany
     private List<Topic> topics = new ArrayList<Topic>();
 
-    public User(Long id, String username, String firstname, String lastname, String email, String phone, SocialGraph socialGraph, List<Conversation> conversations, List<Tweet> tweets, List<Tweet> retweets, List<Tweet> sharedTweets, List<Topic> topics) {
-        this.id = id;
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.phone = phone;
-        this.socialGraph = socialGraph;
-        this.conversations = conversations;
-        this.tweets = tweets;
-        this.retweets = retweets;
-        this.sharedTweets = sharedTweets;
-        this.topics = topics;
-    }
 
     public UserDomain toDomain() {
         return new UserDomain(

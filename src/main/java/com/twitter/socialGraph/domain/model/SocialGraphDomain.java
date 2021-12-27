@@ -16,9 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 public class SocialGraphDomain {
     private Long id;
-    private List<UserDomain> blocked;
-    private List<UserDomain> followed;
-    private List<UserDomain> reported;
+    private List<UserDomain> blocked = new ArrayList<>();
+    private List<UserDomain> followed= new ArrayList<>();
+    private List<UserDomain> reported= new ArrayList<>();
 
     public void report(UserDomain reportedUserDomain) {
         reported.add(reportedUserDomain);

@@ -11,6 +11,8 @@ import com.twitter.tweet.domain.port.infra.IReactionInfraPort;
 import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+
 
 public class TweetUseCase implements ITweetPortToApi {
     @Autowired
@@ -46,6 +48,9 @@ public class TweetUseCase implements ITweetPortToApi {
         UserDomain user = userInfraPort.findUserById(userId);
         tweet.setOwner(user);
         tweet.getOwner().getTweets().add(tweet);
+        tweet.setReplies(new ArrayList<>());
+        tweet.setReports(new ArrayList<>());
+        tweet.setReactions(new ArrayList<>());
         userInfraPort.updateUser(user);
         portToInfra.createTweet(tweet);
     }
