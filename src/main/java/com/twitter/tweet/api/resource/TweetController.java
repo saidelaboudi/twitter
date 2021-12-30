@@ -50,7 +50,7 @@ public class TweetController {
         tweetApiPort.shareTweet(tweetId, userId);
     }
 
-    @PutMapping("/users/{userId}/retweets/{tweetId}/")
+    @GetMapping("/users/{userId}/retweets/{tweetId}/")
     public void retweet(@PathVariable Long tweetId, @PathVariable Long userId) {
         tweetApiPort.retweet(tweetId, userId);
     }

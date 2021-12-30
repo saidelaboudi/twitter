@@ -2,6 +2,7 @@ package com.twitter.socialGraph.api.model;
 
 import com.twitter.directMessage.api.model.ConversationAPI;
 import com.twitter.homeTimeLine.api.model.TopicApi;
+import com.twitter.socialGraph.domain.model.SocialGraphDomain;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import com.twitter.tweet.api.model.TweetAPI;
 import lombok.AllArgsConstructor;
@@ -23,12 +24,11 @@ public class UserAPI {
     private String lastname;
     private String email;
     private String phone;
-    private SocialGraphAPI socialGraph = new SocialGraphAPI();
-    private List<ConversationAPI> conversations = new ArrayList<ConversationAPI>();
-    private List<TweetAPI> tweets = new ArrayList<TweetAPI>();
-    private List<TweetAPI> retweets = new ArrayList<TweetAPI>();
-    private List<TweetAPI> sharedTweets= new ArrayList<TweetAPI>();
-    private List<TopicApi> topics = new ArrayList<>();
+    private List<ConversationAPI> conversations;
+    private List<TweetAPI> tweets ;
+    private List<TweetAPI> retweets;
+    private List<TweetAPI> sharedTweets;
+    private List<TopicApi> topics;
 
 
     public UserDomain toDomain() {
@@ -39,12 +39,11 @@ public class UserAPI {
                 this.lastname,
                 this.email,
                 this.phone,
-                this.socialGraph.toDomain(),
-                this.conversations.stream().map(ConversationAPI::toDomain).collect(Collectors.toList()),
-                this.tweets.stream().map(TweetAPI::toDomain).collect(Collectors.toList()),
-                this.retweets.stream().map(TweetAPI::toDomain).collect(Collectors.toList()),
-                this.sharedTweets.stream().map(TweetAPI::toDomain).collect(Collectors.toList()),
-                this.topics.stream().map(TopicApi::toDomain).collect(Collectors.toList())
+                this.conversations==null?null:this.conversations.stream().map(ConversationAPI::toDomain).collect(Collectors.toList()),
+                this.tweets==null?null:this.tweets.stream().map(TweetAPI::toDomain).collect(Collectors.toList()),
+                this.retweets==null?null:this.retweets.stream().map(TweetAPI::toDomain).collect(Collectors.toList()),
+                this.sharedTweets==null?null:this.sharedTweets.stream().map(TweetAPI::toDomain).collect(Collectors.toList()),
+                this.topics==null?null:this.topics.stream().map(TopicApi::toDomain).collect(Collectors.toList())
         );
     }
 }

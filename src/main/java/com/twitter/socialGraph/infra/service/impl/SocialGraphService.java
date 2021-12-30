@@ -1,11 +1,14 @@
 package com.twitter.socialGraph.infra.service.impl;
 
+import com.twitter.socialGraph.domain.model.SocialGraphDomain;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import com.twitter.socialGraph.infra.model.SocialGraph;
 import com.twitter.socialGraph.infra.repository.SocialGraphRepository;
 import com.twitter.socialGraph.infra.service.ISocialGraphService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SocialGraphService implements ISocialGraphService {
@@ -21,7 +24,8 @@ public class SocialGraphService implements ISocialGraphService {
     }
 
     @Override
-    public SocialGraph findSocialGraphByOwner(UserDomain currentUser) {
-        return currentUser.toInfra().getSocialGraph();
+    public SocialGraphDomain getSocialGraph(UserDomain currentUser) {
+        return socialGraphRepository.findByOwner(currentUser.toInfra()).toDomain();
     }
+
 }

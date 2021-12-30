@@ -25,12 +25,11 @@ public class UserDomain {
     private String lastname;
     private String email;
     private String phone;
-    private SocialGraphDomain socialGraph;
     private List<ConversationDomain> conversations;
     private List<TweetDomain> tweets;
     private List<TweetDomain> retweets;
     private List<TweetDomain> sharedTweets;
-    private List<TopicDomain> topics = new ArrayList<>();
+    private List<TopicDomain> topics;
 
 
     public User toInfra() {
@@ -41,7 +40,6 @@ public class UserDomain {
                 this.lastname,
                 this.email,
                 this.phone,
-                this.socialGraph.toInfra(),
                 this.conversations==null? null : this.conversations.stream().map(ConversationDomain::toInfra).collect(Collectors.toList()),
                 this.tweets==null ? null : this.tweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
                 this.retweets==null? null : this.retweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
@@ -58,7 +56,6 @@ public class UserDomain {
                 this.lastname,
                 this.email,
                 this.phone,
-                this.socialGraph.toAPI(),
                 this.conversations.stream().map(ConversationDomain::toApi).collect(Collectors.toList()),
                 this.tweets.stream().map(TweetDomain::toAPI).collect(Collectors.toList()),
                 this.retweets.stream().map(TweetDomain::toAPI).collect(Collectors.toList()),

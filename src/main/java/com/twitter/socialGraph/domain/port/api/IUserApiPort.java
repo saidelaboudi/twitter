@@ -8,4 +8,6 @@ public interface IUserApiPort {
     UserDomain save(UserDomain user);
     UserDomain findUserById(Long userId);
     List<UserDomain> getAll();
+
+    List<UserDomain> getAllFollowed(Long userId);
 }

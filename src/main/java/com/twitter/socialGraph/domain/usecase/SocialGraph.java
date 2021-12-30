@@ -6,6 +6,9 @@ import com.twitter.socialGraph.domain.port.api.ISocialGraphAPI;
 import com.twitter.socialGraph.domain.port.infra.ISocialGraphInfrastructure;
 import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SocialGraph implements ISocialGraphAPI {
     private ISocialGraphInfrastructure iSocialGraphInfrastructure;
     private IUserInfraPort iUserInfraPort;
@@ -24,10 +27,15 @@ public class SocialGraph implements ISocialGraphAPI {
     }
 
     public SocialGraphDomain followUser(Long currentUserId, Long userId) {
-        UserDomain currentUser = iUserInfraPort.findUserById(userId);
+        UserDomain currentUser = iUserInfraPort.findUserById(currentUserId);
         UserDomain followedUser = iUserInfraPort.findUserById(userId);
         SocialGraphDomain socialGraph = iSocialGraphInfrastructure.findSocialGraph(currentUser);
-        socialGraph.getFollowed().add(followedUser);
+        if(socialGraph.getFollowed()==null){
+            socialGraph.setFollowed(new ArrayList<UserDomain>());
+            socialGraph.getFollowed().add(followedUser);
+        }else{
+            socialGraph.getFollowed().add(followedUser);
+        }
         return iSocialGraphInfrastructure.update(socialGraph);
     }
 
@@ -37,5 +45,10 @@ public class SocialGraph implements ISocialGraphAPI {
         SocialGraphDomain socialGraph = iSocialGraphInfrastructure.findSocialGraph(currentUser);
         socialGraph.getBlocked().add(blockedUser);
         return iSocialGraphInfrastructure.update(socialGraph);
+    }
+
+    @Override
+    public List<UserDomain> getAllFollowed(Long userId) {
+        return iSocialGraphInfrastructure.findSocialGraph(iUserInfraPort.findUserById(userId)).getFollowed();
     }
 }

@@ -9,6 +9,7 @@ import com.twitter.socialGraph.infra.service.ISocialGraphService;
 import com.twitter.socialGraph.infra.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,16 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfr
 
     @Override
     public UserDomain saveUser(UserDomain user) {
-        return userServices.saveUser(user.toInfra()).toDomain();
+        UserDomain usr = userServices.saveUser(user.toInfra()).toDomain();
+        graphServices.update(
+                new SocialGraphDomain(0L,
+                        usr,
+                        new ArrayList<UserDomain>(),
+                        new ArrayList<UserDomain>(),
+                        new ArrayList<UserDomain>())
+                        .toInfra()
+        );
+        return usr;
     }
 
     @Override
@@ -54,12 +64,19 @@ public class SocialGraphAdapter implements ISocialGraphInfrastructure, IUserInfr
     }
 
     @Override
+    public List<UserDomain> getAllFollowed(Long userId) {
+        return graphServices.getSocialGraph(userServices.findUserById(userId).toDomain()).getFollowed();
+    }
+
+
+    @Override
     public SocialGraphDomain findSocialGraph(UserDomain currentUser) {
-        return graphServices.findSocialGraphByOwner(currentUser).toDomain();
+        return graphServices.getSocialGraph(currentUser);
     }
 
     @Override
     public SocialGraphDomain update(SocialGraphDomain socialGraph) {
         return graphServices.update(socialGraph.toInfra()).toDomain();
     }
+
 }

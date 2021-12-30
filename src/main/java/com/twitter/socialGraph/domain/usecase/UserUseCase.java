@@ -5,7 +5,6 @@ import com.twitter.socialGraph.domain.model.SocialGraphDomain;
 import com.twitter.socialGraph.domain.model.UserDomain;
 import com.twitter.socialGraph.domain.port.api.IUserApiPort;
 import com.twitter.socialGraph.domain.port.infra.IUserInfraPort;
-import com.twitter.socialGraph.infra.model.SocialGraph;
 import com.twitter.tweet.domain.model.TweetDomain;
 
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class UserUseCase implements IUserApiPort {
         user.setRetweets(new ArrayList<TweetDomain>());
         user.setSharedTweets(new ArrayList<TweetDomain>(0));
         user.setTweets(new ArrayList<TweetDomain>());
-        user.setSocialGraph(new SocialGraphDomain());
         return userInfraPort.saveUser(user);
     }
 
@@ -37,4 +35,10 @@ public class UserUseCase implements IUserApiPort {
     public List<UserDomain> getAll() {
         return userInfraPort.getAllUsers();
     }
+
+    @Override
+    public List<UserDomain> getAllFollowed(Long userId) {
+        return userInfraPort.getAllFollowed(userId);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.twitter.socialGraph.infra.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.directMessage.infra.model.Conversation;
 import com.twitter.homeTimeLine.domain.model.TopicDomain;
@@ -30,8 +31,6 @@ public class User {
     private String lastname;
     private String email;
     private String phone;
-    @OneToOne(cascade = CascadeType.ALL)
-    private SocialGraph socialGraph;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Conversation> conversations;
     @OneToMany(cascade = CascadeType.ALL)
@@ -41,7 +40,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Tweet> sharedTweets;
     @OneToMany
-    private List<Topic> topics = new ArrayList<Topic>();
+    private List<Topic> topics;
 
 
     public UserDomain toDomain() {
@@ -52,7 +51,6 @@ public class User {
                 this.lastname,
                 this.email,
                 this.phone,
-                this.socialGraph.toDomain(),
                 this.conversations==null? null : this.conversations.stream().map(Conversation::toDomain).collect(Collectors.toList()),
                 this.tweets==null ? null : this.tweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
                 this.retweets==null? null : this.retweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),

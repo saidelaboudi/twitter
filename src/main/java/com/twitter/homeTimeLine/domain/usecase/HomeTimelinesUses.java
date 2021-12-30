@@ -16,7 +16,7 @@ public class HomeTimelinesUses implements IHomeTimeLineApiPort {
     @Override
     public List<TweetDomain> getAllHomeTimeLineTweets(Long userId) {
         UserDomain user = userInfraPort.findUserById(userId);
-        List<UserDomain> followedUsers = user.getSocialGraph().getFollowed();
+        List<UserDomain> followedUsers =userInfraPort.getAllUsers ();//.getFollowed();
         List<TweetDomain> tweets =  new ArrayList<TweetDomain>();
         followedUsers.forEach(u->{
             tweets.addAll(

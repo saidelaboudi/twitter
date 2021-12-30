@@ -7,4 +7,5 @@ public interface ISocialGraphInfrastructure {
     public SocialGraphDomain findSocialGraph(UserDomain currentUserDomain);
 
     public SocialGraphDomain update(SocialGraphDomain socialGraphDomain);
+
 }
