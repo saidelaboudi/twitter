@@ -7,7 +7,6 @@ import com.twitter.tweet.domain.model.ReplyDomain;
 import com.twitter.tweet.domain.model.ReportDomain;
 import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.domain.port.api.ITweetPortToApi;
-import com.twitter.tweet.domain.port.infra.IReactionInfraPort;
 import com.twitter.tweet.domain.port.infra.ITweetPortToInfra;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,13 +45,11 @@ public class TweetUseCase implements ITweetPortToApi {
     @Override
     public void createTweet(TweetDomain tweet, Long userId) {
         UserDomain user = userInfraPort.findUserById(userId);
-        tweet.setOwner(user);
-        tweet.getOwner().getTweets().add(tweet);
         tweet.setReplies(new ArrayList<>());
         tweet.setReports(new ArrayList<>());
         tweet.setReactions(new ArrayList<>());
+        user.getTweets().add(tweet);
         userInfraPort.updateUser(user);
-        portToInfra.createTweet(tweet);
     }
 
     @Override

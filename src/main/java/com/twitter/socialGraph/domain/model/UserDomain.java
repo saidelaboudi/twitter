@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Data
@@ -41,11 +42,11 @@ public class UserDomain {
                 this.email,
                 this.phone,
                 this.socialGraph.toInfra(),
-                this.conversations.stream().map(ConversationDomain::toInfra).collect(Collectors.toList()),
-                this.tweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
-                this.retweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
-                this.sharedTweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
-                this.topics.stream().map(TopicDomain::toInfra).collect(Collectors.toList())
+                this.conversations==null? null : this.conversations.stream().map(ConversationDomain::toInfra).collect(Collectors.toList()),
+                this.tweets==null ? null : this.tweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
+                this.retweets==null? null : this.retweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
+                this.sharedTweets==null? null : this.sharedTweets.stream().map(TweetDomain::toInfra).collect(Collectors.toList()),
+                this.topics==null? null : this.topics.stream().map(TopicDomain::toInfra).collect(Collectors.toList())
         );
     }
 

@@ -7,6 +7,7 @@ import com.twitter.tweet.domain.port.api.ITweetPortToApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/api")
 public class TweetController {

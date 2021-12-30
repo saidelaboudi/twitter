@@ -1,8 +1,11 @@
 package com.twitter.socialGraph.infra.model;
 
+import com.twitter.directMessage.domain.model.ConversationDomain;
 import com.twitter.directMessage.infra.model.Conversation;
+import com.twitter.homeTimeLine.domain.model.TopicDomain;
 import com.twitter.homeTimeLine.infra.model.Topic;
 import com.twitter.socialGraph.domain.model.UserDomain;
+import com.twitter.tweet.domain.model.TweetDomain;
 import com.twitter.tweet.infra.model.Tweet;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,11 +53,11 @@ public class User {
                 this.email,
                 this.phone,
                 this.socialGraph.toDomain(),
-                this.conversations.stream().map(Conversation::toDomain).collect(Collectors.toList()),
-                this.tweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
-                this.retweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
-                this.sharedTweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
-                this.topics.stream().map(Topic::toDomain).collect(Collectors.toList())
+                this.conversations==null? null : this.conversations.stream().map(Conversation::toDomain).collect(Collectors.toList()),
+                this.tweets==null ? null : this.tweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
+                this.retweets==null? null : this.retweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
+                this.sharedTweets==null? null : this.sharedTweets.stream().map(Tweet::toDomain).collect(Collectors.toList()),
+                this.topics==null? null : this.topics.stream().map(Topic::toDomain).collect(Collectors.toList())
         );
     }
 }
