@@ -53,14 +53,17 @@ public class TweetUseCase implements ITweetPortToApi {
     }
 
     @Override
-    public void removeTweet(Long tweetId) {
+    public void removeTweet(Long userId, Long tweetId) {
+        UserDomain user = userInfraPort.findUserById(userId);
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
-        portToInfra.removeTweet(tweet);
+        user.getTweets().remove(tweet);
+        userInfraPort.updateUser(user);
     }
 
     @Override
-    public TweetDomain replyToTweet(Long tweetId, ReplyDomain reply) {
+    public TweetDomain replyToTweet(Long tweetId, Long userId, ReplyDomain reply) {
         TweetDomain tweet = portToInfra.findTweetById(tweetId);
+        reply.setUser(userInfraPort.findUserById(userId));
         tweet.addReply(reply);
         return portToInfra.updateTweet(tweet);
     }

@@ -35,14 +35,14 @@ public class TweetController {
         tweetApiPort.createTweet(tweet.toDomain(), userId);
     }
 
-    @PutMapping("/tweets/{tweetId}/remove")
-    public void removeTweet(@PathVariable Long tweetId) {
-        tweetApiPort.removeTweet(tweetId);
+    @GetMapping("/users/{userId}/tweets/{tweetId}/remove")
+    public void removeTweet(@PathVariable Long tweetId,@PathVariable Long userId) {
+        tweetApiPort.removeTweet(userId,tweetId);
     }
 
-    @PutMapping("/tweets/{tweetId}/reply")
-    public void replyToTweet(@PathVariable Long tweetId, @RequestBody ReplyAPI reply) {
-        tweetApiPort.replyToTweet(tweetId, reply.toDomain());
+    @PutMapping("/tweets/{tweetId}/reply/{userId}")
+    public void replyToTweet(@PathVariable Long tweetId, @PathVariable Long userId, @RequestBody ReplyAPI reply) {
+        tweetApiPort.replyToTweet(tweetId, userId, reply.toDomain());
     }
 
     @GetMapping("/user/{userId}/shares/tweets/{tweetId}/")
